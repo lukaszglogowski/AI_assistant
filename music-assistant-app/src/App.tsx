@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { CommandRecorder } from 'features/CommandRecorder';
 
 function App() {
   
   return (
     <div className="App">
       <div className="card">
-        <button onClick={() => {}}>
+        {false && <button onClick={() => {}}>
           Click me
-        </button>
+        </button>}
+        <CommandRecorder></CommandRecorder>
       </div>
     </div>
   )

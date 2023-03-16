@@ -22,6 +22,7 @@ export default defineConfig({
       },
     },
   },*/
+  base: '/AI_assistant/',
   plugins: [
     react(),
     tsconfigPaths(),
@@ -31,5 +32,6 @@ export default defineConfig({
         generate: true,
         outFile: path.resolve(__dirname, './src/style.d.ts'),
       },
-    }),*/],
+    }),*/
+    ],
 })

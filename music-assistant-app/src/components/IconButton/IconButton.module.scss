@@ -1,0 +1,50 @@
+
+.button {
+  padding: 0.75em;
+  width: 1em;
+  height: 1em;
+
+  border-radius: 50%;
+  border-color: black;
+  border-style: solid;
+  border-width: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  &:hover {
+    outline: black solid 1px;
+  }
+
+  &:focus {
+    outline: black solid 1px;
+  }
+
+  &.active {
+    background-color: black;
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    color: white;
+    border-color: white;
+
+    &:hover {
+      outline: white solid 1px;
+    }
+
+    &:focus {
+      outline: white solid 1px;
+    }
+  
+    &.active {
+      background-color: white;
+      color: black;
+    }
+  }
+}

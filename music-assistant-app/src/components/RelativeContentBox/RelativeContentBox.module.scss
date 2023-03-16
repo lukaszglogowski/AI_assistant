@@ -1,11 +1,54 @@
 
+$contentButtonDistnce: 1em;
+
+@function finalDistance() {
+  @return calc(100% + $contentButtonDistnce);
+}
+
 .content-box-position {
-  min-width: 100px;
-  min-height: 100px;
-  border: 1px solid white;
+  min-width: fit-content;
+  min-height: fit-content;
   position: absolute;
 }
 
-.right {
-  right: 0px;
+.alignment {
+  &-right {
+    right: 0;
+  }
+  &-left {
+    left: 0;
+  }
+  &-top {
+    top: 0;
+  }
+  &-bottom {
+    bottom: 0;
+  }
+}
+
+.positioning {
+  &-right {
+    left: finalDistance();
+  }
+  &-left {
+    right: finalDistance();
+  }
+  &-top {
+    bottom: finalDistance();
+  }
+  &-bottom {
+    top: finalDistance();
+  }
+}
+
+.content-box-style {
+  border: 2px solid black;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .content-box-style {
+    border-color: white;
+  }
 }

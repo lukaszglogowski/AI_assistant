@@ -2,10 +2,9 @@ import { IconButton } from 'components/IconButton';
 import React, { useState } from 'react';
 import { buildCssClass } from 'utils/css/builders';
 
-import { BsQuestionLg } from 'react-icons/bs'
-
 import styles from './TopBar.module.scss';
 import { RelativeContentBox } from 'components/RelativeContentBox';
+import { BsQuestionLg } from 'react-icons/bs';
 
 export type TopBarProps = {
 
@@ -13,7 +12,6 @@ export type TopBarProps = {
 
 export const TopBar = (props: TopBarProps) => {
 
-  const [helpActive, setHelpActive] = useState<boolean>(false);
 
   const conatinerClassObj = {
     [styles.container]: true,
@@ -22,13 +20,14 @@ export const TopBar = (props: TopBarProps) => {
   return (
     <div className={buildCssClass(conatinerClassObj)}>
       <div>
-        <IconButton
-          onClick={() => setHelpActive(!helpActive)}
-          active={helpActive}
+        <RelativeContentBox
+          positioning='Bottom'
+          alignment='End'
+          buttonComponent={IconButton}
+          buttonContent={<BsQuestionLg/>}
         >
-          <BsQuestionLg/>
-        </IconButton>
-        <RelativeContentBox></RelativeContentBox>
+          test 123!
+        </RelativeContentBox>
       </div>
     </div>
   )

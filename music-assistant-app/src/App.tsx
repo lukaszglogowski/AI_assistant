@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { CommandRecorder } from 'features/CommandRecorder';
 import PageLayout from 'features/Layout/PageLayout/PageLayout';
+import { RecordingManagement } from 'features/RecordingManagement';
+import { ResultContentManager } from 'features/ResultContentManagment';
 
 function App() {
   
   return (
     <PageLayout>
-      <CommandRecorder></CommandRecorder>
+      <RecordingManagement></RecordingManagement>
+      <ResultContentManager></ResultContentManager>
     </PageLayout>
   )
 }

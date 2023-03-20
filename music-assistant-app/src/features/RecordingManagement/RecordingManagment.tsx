@@ -1,3 +1,4 @@
+import { MessageDisplayer } from 'components/MessageDisplayer';
 import { CommandRecorder } from 'features/CommandRecorder';
 import React from 'react';
 
@@ -9,6 +10,7 @@ export const RecordingManagement = (props: RecordingManagementProps) => {
   return (
     <>
       <CommandRecorder></CommandRecorder>
+      <MessageDisplayer></MessageDisplayer>
     </>
   );
 }

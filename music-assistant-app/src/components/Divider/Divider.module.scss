@@ -1,0 +1,11 @@
+.divider {
+  min-height: 1px;
+  background-color: black;
+  margin: 1em 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .divider {
+    background-color: white;
+  }
+}

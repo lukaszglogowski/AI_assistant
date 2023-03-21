@@ -1,11 +1,6 @@
 import MessageContext from "contexts/MessageContext";
 import React, { useContext } from "react";
 
-
-
-let dateTime = new Date().toLocaleString();
-
-
 export type CommandData = {
   commandName: string;
   command: string[];
@@ -15,28 +10,37 @@ export type CommandData = {
 
 export const commands: CommandData[] = [
   {
-    commandName: '1',
+    commandName: 'Data i czas',
     command: ['Podaj datę i czas'],
     callback: () => {
+      let dateTime = new Date().toLocaleString();
       const context = useContext(MessageContext);
       context.setMessage(dateTime);
     },
-    description: 'TEST'
+    description: 'Podaje obecną date i godzinę dla lokalnej strefy czasowej'
   },
   {
-    commandName: '2',
-    command: ['Wyświetl Wikipedia'],
-    callback: () => {
-      window.open("https://en.wikipedia.org/wiki/React_(JavaScript_library)", '_blank', 'noopener,noreferrer');
+    commandName: 'Wikipedia',
+    command: ['Wyszukaj w Wikipedii *'],
+    callback: (search) => {
+      console.log(search);
+      const url = new URL('https://pl.wikipedia.org/w/index.php')
+
+      url.searchParams.append('search', search)
+      window.open(url, '_blank', 'noopener,noreferrer');
     },
-    description: 'TEST'
+    description: 'Wyszukuje w serwisie Wikipedia daną frazę'
   },
   {
-    commandName: '3',
-    command: ['Wyświetl Youtube'],
-    callback: () => {
-      window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley", '_blank', 'noopener,noreferrer');
+    commandName: 'Youtube',
+    command: ['Wyszukaj w Youtube *'],
+    callback: (search) => {
+      console.log(search);
+      const url = new URL('https://www.youtube.com/results')
+
+      url.searchParams.append('search_query', search)
+      window.open(url, '_blank', 'noopener,noreferrer');
     },
-    description: 'TEST'
+    description: 'Wyszukuje w serwisie Youtube daną frazę'
   },
 ];

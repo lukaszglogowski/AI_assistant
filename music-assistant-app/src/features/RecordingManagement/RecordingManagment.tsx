@@ -1,4 +1,5 @@
 import { MessageDisplayer } from 'components/MessageDisplayer';
+import { CommandHelpDisplayer } from 'features/CommandHelpDisplayer';
 import { CommandRecorder } from 'features/CommandRecorder';
 import React from 'react';
 

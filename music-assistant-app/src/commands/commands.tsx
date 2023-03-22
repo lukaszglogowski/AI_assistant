@@ -17,7 +17,7 @@ export const commands: CommandData[] = [
       const context = useContext(MessageContext);
       context.setMessage(dateTime);
     },
-    description: 'Podaje obecną date i godzinę dla lokalnej strefy czasowej'
+    description: 'Wyświetla na ekranie obecną date i godzinę dla lokalnej strefy czasowej'
   },
   {
     commandName: 'Wikipedia',
@@ -29,7 +29,12 @@ export const commands: CommandData[] = [
       url.searchParams.append('search', search)
       window.open(url, '_blank', 'noopener,noreferrer');
     },
-    description: 'Wyszukuje w serwisie Wikipedia daną frazę'
+    description: (
+      <>
+        Otwiera nową kartę w przeglądarce ze stroną Wikipedii i wyszukuje w niej podaną frazę<br/>
+        Przykład: <strong>'Wyszukaj w Wikipedii pies'</strong>
+      </>
+    )
   },
   {
     commandName: 'Youtube',
@@ -41,6 +46,11 @@ export const commands: CommandData[] = [
       url.searchParams.append('search_query', search)
       window.open(url, '_blank', 'noopener,noreferrer');
     },
-    description: 'Wyszukuje w serwisie Youtube daną frazę'
+    description: (
+      <>
+        Otwiera nową kartę w przeglądarce ze stroną Youtube i wyszukuje w niej podaną frazę<br/>
+        Przykład: <strong>'Wyszukaj w Youtube pies'</strong>
+      </>
+    )
   },
 ];

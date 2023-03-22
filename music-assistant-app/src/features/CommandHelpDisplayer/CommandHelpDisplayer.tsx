@@ -11,7 +11,7 @@ const CommandInstance = (props: {data: CommandData}) => {
     <div className={styles['command-instance-container']}>
       <div className={styles['command-instance-container__title']}>{props.data.commandName}</div>
       <div className={styles['command-instance-container__commands']}>
-        Wywoływana przez: {props.data.command.map((el, i) => (<>{(i !== 0) && ', '}<span className={styles.command}>'{el}'</span></>))}
+        Powiedz: {props.data.command.map((el, i) => (<>{(i !== 0) && ', '}<span className={styles.command}>'{el.replace('*', '[szukana fraza]')}'</span></>))}
       </div>
       <div className={styles['command-instance-container__description']}>{props.data.description}</div>
     </div>
@@ -27,7 +27,7 @@ export const CommandHelpDisplayer = (props: CommandHelpDisplayerProps) => {
 
   return (
     <div className={styles['command-help-conatiner']}>
-      <span className={styles['command-help-conatiner__title']}>Dostępne komendy</span>
+      <span className={styles['command-help-conatiner__title']}>Dostępne komendy głosowe</span>
         <div>
               {commands.map((item) => (
                 <>

@@ -9,6 +9,7 @@ $contentButtonDistnce: 1em;
   min-width: fit-content;
   min-height: fit-content;
   position: absolute;
+  z-index: 1;
 }
 
 .alignment {
@@ -43,6 +44,7 @@ $contentButtonDistnce: 1em;
 
 .content-box-style {
   border: 2px solid black;
+  background-color: white;
   border-radius: 0.5em;
   padding: 1em;
 }
@@ -50,5 +52,6 @@ $contentButtonDistnce: 1em;
 @media (prefers-color-scheme: dark) {
   .content-box-style {
     border-color: white;
+    background-color: #242424;
   }
 }

@@ -5,7 +5,6 @@ import { buildCssClass } from "utils/css/builders";
 import styles from "./TopBar.module.scss";
 import { RelativeContentBox } from "components/RelativeContentBox";
 import { BsQuestionLg } from "react-icons/bs";
-import { commands } from "commands/commands";
 import { CommandHelpDisplayer } from 'features/CommandHelpDisplayer';
 
 export type TopBarProps = {};

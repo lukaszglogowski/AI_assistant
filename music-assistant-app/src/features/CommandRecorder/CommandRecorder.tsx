@@ -5,9 +5,10 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 
 import { BsFillMicFill } from "react-icons/bs";
-//import { commands } from "commands/commands";
-import { MessageDisplayer } from "components/MessageDisplayer";
 import MessageContext from 'contexts/MessageContext';
+import { createCommands } from 'commands/commands';
+
+import styles from './CommandRecorder.module.scss';
 
 export type CommandData = {
   commandName: string;
@@ -20,42 +21,9 @@ export type CommandRecorderProps = {};
 
 export const CommandRecorder = (props: CommandRecorderProps) => {
   const context = useContext(MessageContext);
-  const commands: CommandData[] = [
-    {
-      commandName: '1',
-      command: ['Podaj datę i czas'],
-      callback: () => {
-        let dateTime = new Date().toLocaleString();
-        
-        context.setMessage(dateTime);
-      },
-      description: 'TEST'
-    },
-    {
-      commandName: '2',
-      command: ['wyszukaj w Wikipedii *'],
-      callback: (search) => {
-        console.log(search);
-        const url = new URL('https://pl.wikipedia.org/w/index.php')
-  
-        url.searchParams.append('search', search)
-        window.open(url, '_blank', 'noopener,noreferrer');
-      },
-      description: 'TEST'
-    },
-    {
-      commandName: '3',
-      command: ['Wyszukaj w Youtube *'],
-      callback: (search) => {
-        console.log(search);
-        const url = new URL('https://www.youtube.com/results')
-  
-        url.searchParams.append('search_query', search)
-        window.open(url, '_blank', 'noopener,noreferrer');
-      },
-      description: 'TEST'
-    },
-  ];
+  const [commands, _] = useState(createCommands({
+    DateTime: (msg) => context.setMessage(msg)
+  }));
 
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
   const {
@@ -78,8 +46,16 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     setIsButtonActive(listening);
   }, [listening])
 
+  useEffect(() => {
+    context.setMessage((
+      <div className={styles['transcript-message']}>
+        {transcript}
+      </div>
+    ))
+  }, [transcript])
+
   return (
-    <div style={{ fontSize: "56px" }}>
+    <div className={styles['command-recorder']}>
       <RecordingButton
         active={isButtonActive}
         onClick={() => setIsButtonActive(!isButtonActive)}

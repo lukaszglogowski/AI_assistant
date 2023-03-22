@@ -1,0 +1,10 @@
+.command-recorder {
+  font-size: 56px;
+}
+
+.transcript-message {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+}

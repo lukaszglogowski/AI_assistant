@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
-import { CommandData, commands } from 'commands/commands';
+import { CommandData, createCommands } from 'commands/commands';
 
 import styles from './CommandHelpDisplayer.module.scss'
 import { Divider } from 'components/Divider';
@@ -25,11 +25,13 @@ export type CommandHelpDisplayerProps = {
 
 export const CommandHelpDisplayer = (props: CommandHelpDisplayerProps) => {
 
+  const commands = useRef(createCommands())
+
   return (
     <div className={styles['command-help-conatiner']}>
       <span className={styles['command-help-conatiner__title']}>Dostępne komendy głosowe</span>
         <div>
-              {commands.map((item) => (
+              {commands.current.map((item) => (
                 <>
                   <Divider/>
                   <CommandInstance data={item} />

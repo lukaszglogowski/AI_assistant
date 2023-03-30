@@ -13,8 +13,9 @@ export type RecordingButtonProps =
 export const RecordingButton = (props: RecordingButtonProps) => {
   const classObj = {
     [styles.container]: true,
+    [props.colorClassName!!]: true,
     [styles.oval]: !!props.isOval,
-    [styles.active]: !!props.active,
+    ['active']: !!props.active,
   }
 
   const buttonClassObj = {
@@ -44,6 +45,7 @@ export const RecordingButton = (props: RecordingButtonProps) => {
 
 RecordingButton.defaultProps = {
   isOval: true,
+  colorClassName: styles['default-color']
 };
 
 export default RecordingButton;

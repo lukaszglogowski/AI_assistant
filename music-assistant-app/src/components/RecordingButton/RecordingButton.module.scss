@@ -1,16 +1,16 @@
 
 .container {
   position: relative;
-  background-color: red;
   border-radius: 0.25em;
   width: fit-content;
+  z-index: 0;
 
   &.oval {
     border-radius: 50%;
   }
 
   &.active {
-    background-color:brown;
+    
   }
 
   .recordingButton {
@@ -77,5 +77,14 @@
   100% {
     transform: scale(1.5);
     opacity: 0;
+  }
+}
+
+.default-color {
+  background-color: red;
+  &:global {
+    &.active {
+      background-color:brown;
+    }
   }
 }

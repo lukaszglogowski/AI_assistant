@@ -1,0 +1,101 @@
+$timer-dur: 10s;
+
+.music-recorder {
+  font-size: 34px;
+  z-index: 0;
+  position: relative;
+}
+
+.timer {
+  $parent: &;
+
+  position: absolute;
+  border-radius: 50%;
+  min-width: 150%;
+  min-height: 150%;
+  z-index: -1;
+  top: -25%;
+  left: -25%;
+  box-sizing: border-box;
+
+  .pie {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    transform-origin: 100% 50%;
+
+    &.spinner {
+      border-radius: 100% 0 0 100% / 50% 0 0 50%;
+      border-right: none;
+      
+    }
+
+    &.filler {
+      border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+      border-right: none;
+      left: 50%;
+      opacity: 0;
+    }
+  }
+  .mask {
+    width: 52%;
+    height: 102%;
+    left: -2%;
+    top: -1%;
+    position: absolute;
+    opacity: 1;
+    z-index: 2;
+  }
+
+  &.active {
+    .pie {
+      &.spinner {
+        animation: rota $timer-dur linear forwards;
+      }
+      &.filler {
+        animation: fill $timer-dur steps(1, end) forwards;
+      }
+    }
+    .mask {
+      animation: mask $timer-dur steps(1, end) forwards;
+    }
+  }
+}
+
+.timer-color {
+  background-color: #6796ff;
+}
+
+.mask-color {
+  background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .mask-color {
+    background: #242424;
+  }
+}
+
+.color {
+  background-color: #0068c9;
+  &:global {
+    &.active {
+      background-color:rgb(3, 38, 196);
+    }
+  }
+}
+
+@keyframes rota {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fill {
+  0%        { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@keyframes mask {
+  0%        { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}

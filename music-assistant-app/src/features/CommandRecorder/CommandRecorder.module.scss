@@ -8,3 +8,12 @@
   text-overflow: ellipsis;
   direction: rtl;
 }
+
+.color {
+  background-color: red;
+  &:global {
+      &.active {
+      background-color:#b20000;
+    }
+  }
+}

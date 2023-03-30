@@ -10,13 +10,6 @@ import { createCommands } from 'commands/commands';
 
 import styles from './CommandRecorder.module.scss';
 
-export type CommandData = {
-  commandName: string;
-  command: string[];
-  callback: (...args: any[]) => unknown;
-  description: React.ReactNode;
-}
-
 export type CommandRecorderProps = {};
 
 export const CommandRecorder = (props: CommandRecorderProps) => {
@@ -32,6 +25,8 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition({ commands });
+
+
 
   useEffect(() => {
     if (isButtonActive) {
@@ -54,11 +49,14 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     ))
   }, [transcript])
 
+
+
   return (
     <div className={styles['command-recorder']}>
       <RecordingButton
         active={isButtonActive}
         onClick={() => setIsButtonActive(!isButtonActive)}
+        colorClassName={styles['color']}
       >
         <BsFillMicFill />
       </RecordingButton>

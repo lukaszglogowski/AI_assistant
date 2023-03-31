@@ -7,9 +7,10 @@ import { IconButton } from 'components/IconButton';
 
 import { MdKeyboardBackspace } from 'react-icons/md';
 import { Divider } from 'components/Divider';
+import { History } from 'features/HistoryRenderer/HistoryRendere.types';
 
 export type ResultContentManagerProps = {
-  history: History;
+  history: History
   onBackButtonClick?: () => void;
 };
 
@@ -26,7 +27,11 @@ export const ResultContentManager = (props: ResultContentManagerProps) => {
   return (
     <div className={containerClassObj}>
       <div className={styles['header']}>
-        <IconButton emptySpaceSize={50}>
+        <IconButton
+          emptySpaceSize={50}
+          onClick={props.onBackButtonClick}
+          disabled={props.history.length < 2}
+        >
           <MdKeyboardBackspace/>
         </IconButton>
         <div className={styles['title']}>

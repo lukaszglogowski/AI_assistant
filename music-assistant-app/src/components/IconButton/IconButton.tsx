@@ -13,13 +13,16 @@ export const IconButton = (props: IconButtonProps) => {
   const classObj = {
     [styles.button]: true,
     [styles.active]: !!props.active,
+    [styles.disabled]: !!props.disabled,
     [styles[`button-space-${props.emptySpaceSize}-sizing`]]: true,
   }
 
   return (
     <div
       className={buildCssClass(classObj)}
-      onClick={props.onClick}
+      onClick={(e) => {
+        props.onClick && !props.disabled && props.onClick(e);
+      }}
     >
       {props.children}
     </div>
@@ -27,7 +30,7 @@ export const IconButton = (props: IconButtonProps) => {
 }
 
 IconButton.defaultProps = {
-  empptySpaceSize: 75
+  emptySpaceSize: 75
 }
 
 export default IconButton

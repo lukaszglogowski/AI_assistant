@@ -28,7 +28,10 @@ function App() {
         }}>
           <RecordingManagement/>
           
-          <ResultContentManager history={history}/>
+          <ResultContentManager
+            history={history}
+            onBackButtonClick={() => {setHistory(history.slice(0, -1))}}
+          />
         </HistoryRendererManipulationContext.Provider>
       </MessageContext.Provider>
     </PageLayout>

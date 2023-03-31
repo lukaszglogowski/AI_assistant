@@ -3,6 +3,7 @@ import { OnClickProps } from './_eventProps.types';
 
 export type AbstractControlProps = {
     active?: boolean;
+    disabled?: boolean;
 }
 
 export type AbstractStylingControlProps =

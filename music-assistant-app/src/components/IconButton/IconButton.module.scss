@@ -26,17 +26,28 @@
     padding: 0.25em;
   }
 
-  &:hover {
+  &:hover:not(.disabled) {
     outline: black solid 1px;
   }
 
-  &:focus {
+  &:focus:not(.disabled) {
     outline: black solid 1px;
   }
 
   &.active {
     background-color: black;
     color: white;
+  }
+
+  &.disabled {
+    background-color: rgb(207, 207, 207);
+    border-color: grey;
+    color: gray;
+
+    &.active {
+      background-color: gray;
+      color: rgb(207, 207, 207);
+    }
   }
 }
 
@@ -45,17 +56,27 @@
     color: white;
     border-color: white;
 
-    &:hover {
+    &:hover:not(.disabled) {
       outline: white solid 1px;
     }
 
-    &:focus {
+    &:focus:not(.disabled) {
       outline: white solid 1px;
     }
   
     &.active {
       background-color: white;
       color: black;
+    }
+
+    &.disabled {
+      color: grey;
+      background-color: inherit;
+      
+      &.active {
+        background-color: grey;
+        color: black;
+      }
     }
   }
 }

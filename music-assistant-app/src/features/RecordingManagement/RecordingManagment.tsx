@@ -15,7 +15,9 @@ export const RecordingManagement = (props: RecordingManagementProps) => {
     <>
       <div className={styles['recording-box']}>
         <CommandRecorder></CommandRecorder>
-        <MusicRecorder></MusicRecorder>
+        <div className={styles['music-space']}>
+          <MusicRecorder></MusicRecorder>
+        </div>
       </div>
       <MessageDisplayer></MessageDisplayer>
     </>

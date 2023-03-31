@@ -9,8 +9,9 @@ import MessageContext from 'contexts/MessageContext';
 import { createCommands } from 'commands/commands';
 
 import styles from './CommandRecorder.module.scss';
+import { ActiveStateUpdateProps } from 'features/RecordingManagement/types';
 
-export type CommandRecorderProps = {};
+export type CommandRecorderProps = ActiveStateUpdateProps & {};
 
 export const CommandRecorder = (props: CommandRecorderProps) => {
   const context = useContext(MessageContext);
@@ -27,6 +28,15 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
   } = useSpeechRecognition({ commands });
 
 
+  useEffect(() => {
+    setIsButtonActive(true);
+  }, [props.forceActivate])
+
+  useEffect(() => {
+    setIsButtonActive(false);
+    SpeechRecognition.abortListening();
+    resetTranscript();
+  }, [props.forceDeactivate])
 
   useEffect(() => {
     if (isButtonActive) {
@@ -35,11 +45,14 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     } else {
       SpeechRecognition.stopListening();
     }
+    props.onActiveStateChange!!(isButtonActive);
   }, [isButtonActive]);
 
   useEffect(() => {
     setIsButtonActive(listening);
   }, [listening])
+
+
 
   useEffect(() => {
     context.setMessage((
@@ -63,5 +76,9 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     </div>
   );
 };
+
+CommandRecorder.defaultProps = {
+  onActiveStateChange: () => {}
+}
 
 export default CommandRecorder;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RecordingButton } from 'components/RecordingButton';
 
 import { HiMusicNote } from 'react-icons/hi';
 
 import styles from './MusicRecorder.module.scss';
 import { buildCssClass } from 'utils/css/builders';
+import { ActiveStateUpdateProps } from 'features/RecordingManagement/types';
 
 const timerPieBegClassObj = buildCssClass({
   [styles['pie']]: true,
@@ -23,7 +24,7 @@ const timerPieMaskClassObj = buildCssClass({
   [styles['mask-color']]: true,
 });
 
-export type MusicRecorderProps = {};
+export type MusicRecorderProps = ActiveStateUpdateProps & {};
 
 export const MusicRecorder = (props: MusicRecorderProps) => {
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
@@ -32,6 +33,20 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
     [styles['timer']]: true,
     [styles['active']]: isButtonActive,
   });
+
+
+  useEffect(() => {
+    setIsButtonActive(true);
+  }, [props.forceActivate])
+
+  useEffect(() => {
+    setIsButtonActive(false);
+  }, [props.forceDeactivate])
+
+  useEffect(() => {
+    props.onActiveStateChange!!(isButtonActive)
+  }, [isButtonActive])
+  
 
   return (
     <div className={styles['music-recorder']}>
@@ -52,7 +67,7 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
 };
 
 MusicRecorder.defaultProps = {
-
+  onActiveStateChange: () => {}
 };
 
 export default MusicRecorder;

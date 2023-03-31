@@ -1,6 +1,5 @@
 
 .button {
-  padding: 0.75em;
   width: 1em;
   height: 1em;
 
@@ -14,6 +13,18 @@
   align-items: center;
 
   cursor: pointer;
+
+  &-space-75-sizing {
+    padding: 0.75em;
+  }
+
+  &-space-50-sizing {
+    padding: 0.5em;
+  }
+
+  &-space-25-sizing {
+    padding: 0.25em;
+  }
 
   &:hover {
     outline: black solid 1px;

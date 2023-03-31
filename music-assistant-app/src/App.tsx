@@ -5,10 +5,14 @@ import PageLayout from 'features/Layout/PageLayout/PageLayout';
 import { RecordingManagement } from 'features/RecordingManagement';
 import { ResultContentManager } from 'features/ResultContentManagment';
 import MessageContext from 'contexts/MessageContext';
+import { HistoryRenderer } from 'features/HistoryRenderer';
+import HistoryRendererManipulationContext from 'contexts/HistoryRendereManipulationContext';
+import { History, HistoryEntity } from 'features/HistoryRenderer/HistoryRendere.types';
 
 function App() {
 
   const [message, setMessage] = useState<React.ReactNode>('');
+  const [history, setHistory] = useState<History>([]);
   
   return (
     <PageLayout>
@@ -17,8 +21,15 @@ function App() {
         setMessage: setMessage,
         clear: () => {setMessage('')}
       }}>
-        <RecordingManagement></RecordingManagement>
-        <ResultContentManager></ResultContentManager>
+        <HistoryRendererManipulationContext.Provider value={{
+          pushToHistory: (entry: HistoryEntity) => {
+            setHistory(history.concat(...history, entry))
+          }
+        }}>
+          <RecordingManagement/>
+          
+          <ResultContentManager history={history}/>
+        </HistoryRendererManipulationContext.Provider>
       </MessageContext.Provider>
     </PageLayout>
   )

@@ -7,7 +7,7 @@ import { IconButton } from 'components/IconButton';
 
 import { MdKeyboardBackspace } from 'react-icons/md';
 import { Divider } from 'components/Divider';
-import { History } from 'features/HistoryRenderer/HistoryRendere.types';
+import { History } from 'features/HistoryRenderer/HistoryRenderer.types';
 
 export type ResultContentManagerProps = {
   history: History
@@ -39,7 +39,7 @@ export const ResultContentManager = (props: ResultContentManagerProps) => {
         </div>
       </div>
       <Divider/>
-      <HistoryRenderer history={history}/>
+      <HistoryRenderer history={props.history}/>
     </div>
   );
 }

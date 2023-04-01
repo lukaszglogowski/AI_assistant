@@ -7,7 +7,7 @@ import { ResultContentManager } from 'features/ResultContentManagment';
 import MessageContext from 'contexts/MessageContext';
 import { HistoryRenderer } from 'features/HistoryRenderer';
 import HistoryRendererManipulationContext from 'contexts/HistoryRendereManipulationContext';
-import { History, HistoryEntity } from 'features/HistoryRenderer/HistoryRendere.types';
+import { History, HistoryEntity } from 'features/HistoryRenderer/HistoryRenderer.types';
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
         clear: () => {setMessage('')}
       }}>
         <HistoryRendererManipulationContext.Provider value={{
-          pushToHistory: (entry: HistoryEntity) => {
+          pushToHistory: (entry: HistoryEntity<any>) => {
             setHistory(history.concat(...history, entry))
           }
         }}>

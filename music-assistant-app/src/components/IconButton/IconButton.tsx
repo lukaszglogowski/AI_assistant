@@ -31,6 +31,6 @@ export const IconButton = (props: IconButtonProps) => {
 
 IconButton.defaultProps = {
   emptySpaceSize: 75
-}
+} as IconButtonProps;
 
 export default IconButton

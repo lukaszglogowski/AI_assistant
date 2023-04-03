@@ -1,11 +1,17 @@
 import { IconButton } from "components/IconButton";
-import React, { useState } from "react";
 import { buildCssClass } from "utils/css/builders";
 
 import styles from "./TopBar.module.scss";
 import { RelativeContentBox } from "components/RelativeContentBox";
 import { BsQuestionLg } from "react-icons/bs";
 import { CommandHelpDisplayer } from 'features/CommandHelpDisplayer';
+
+
+const HelperButton = {
+  props: {},
+  component: IconButton,
+  content: <BsQuestionLg />
+}
 
 export type TopBarProps = {};
 
@@ -21,8 +27,7 @@ export const TopBar = (props: TopBarProps) => {
           <RelativeContentBox
             positioning="Bottom"
             alignment="End"
-            buttonComponent={IconButton}
-            buttonContent={<BsQuestionLg />}
+            buttonComponent={HelperButton}
           >
             <CommandHelpDisplayer/>
           </RelativeContentBox>

@@ -21,11 +21,16 @@ export const RelativeContentBoxPositioningEnum = {
 export type RelativeContentBoxPositioningEnumType = keyof typeof RelativeContentBoxPositioningEnum;
 export type RelativeContentBoxAlignmentEnumType = keyof typeof RelativeContentBoxAlignmentEnum;
 
-export type RelativeContentBox = ChildrenProps & {
+export type RelativeContentBoxButtonProps = Omit<AbstractButtonProps, 'onClick' | 'active'>;
+
+export type RelativeContentBox<BUTTON_PROPS extends RelativeContentBoxButtonProps> = ChildrenProps & {
   positioning: RelativeContentBoxPositioningEnumType,
   alignment: RelativeContentBoxAlignmentEnumType,
-  buttonComponent: ComponentType<AbstractButtonProps>,
-  buttonContent: React.ReactNode,
+  buttonComponent: {
+    props: BUTTON_PROPS,
+    component: ComponentType<BUTTON_PROPS>,
+    content: React.ReactNode,
+  },
 }
 
 function resolvePositioningClasses(
@@ -52,7 +57,7 @@ function resolvePositioningClasses(
     return classObj;
   }
 
-export const RelativeContentBox = (props: RelativeContentBox) => {
+export const RelativeContentBox = <BUTTON_PROPS extends AbstractButtonProps, >(props: RelativeContentBox<BUTTON_PROPS>) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(false);
   const classObj = {
@@ -70,7 +75,7 @@ export const RelativeContentBox = (props: RelativeContentBox) => {
     setActive(!active)
   }
 
-  const Button = props.buttonComponent;
+  const Button = props.buttonComponent.component
 
   return (
     <div
@@ -80,10 +85,11 @@ export const RelativeContentBox = (props: RelativeContentBox) => {
       onBlur={() => setActive(false)}
     >
       <Button
+        {...props.buttonComponent.props}
         onClick={handleButtonClick}
         active={active}
       >
-        {props.buttonContent}
+        {props.buttonComponent.content}
       </Button>
       {active && <div className={buildCssClass(classObj)}>
         {props.children}

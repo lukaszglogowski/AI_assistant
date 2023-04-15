@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useQuery } from 'react-query';
 import { SHAZAM_API } from 'utils/apis/shazam';
 import SongInfoContent from './SongInfoContent/SongInfoContent';
+import HistoryRendererManipulationContext from 'contexts/HistoryRendererManipultaionContext';
 
 type InitResolveStateT = {
   isResolving: boolean;
@@ -17,36 +18,27 @@ export type SongInfoPageProps<T> = {
 
 export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
 
+  const historyRendererContext = useContext(HistoryRendererManipulationContext);
+
   const [key, setKey] = useState<string>()
-  const [keyGetterStatus, setKeyGetterStatus] = useState<InitResolveStateT>({
-    isResolving: false,
-    isError: true,
-  });
+  const [keyGetterStatus, setKeyGetterStatus] = useState<'idle' | 'error' | 'loading' | 'success'>('idle');
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     if (typeof props.songKey === 'string') {
       setKey(props.songKey);
-      setKeyGetterStatus({
-        isResolving: false,
-        isError: false,
-      });
+      setKeyGetterStatus('success');
     } else {
-      setKeyGetterStatus({
-        ...keyGetterStatus,
-        isResolving: true
-      });
+      setKeyGetterStatus('loading');
       props.songKey.keyGetter().then((value) => {
-        if (typeof props.songKey !== 'string')
-        setKey(props.songKey.keyResolver(value));
-        setKeyGetterStatus({
-          isResolving: false,
-          isError: false,
-        });
+        if (typeof props.songKey !== 'string') {
+          setKey(props.songKey.keyResolver(value));
+          setKeyGetterStatus('success');
+        } else {
+          setKeyGetterStatus('error');
+        }
       }).catch(() => {
-        setKeyGetterStatus({
-          isResolving: false,
-          isError: true,
-        });
+        setKeyGetterStatus('error');
       })
     }
   }, [])
@@ -71,11 +63,31 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
     enabled: !!songId,
   })
 
-  //console.log(apiKeys, songDetails)
+  useEffect(() => {
+    if (
+      apiKeysStatus === 'loading' ||
+      songDetailsStatus === 'loading' ||
+      keyGetterStatus === 'loading'
+    ) {
+      historyRendererContext.showLoadingSpinner(true);
+    } else {
+      historyRendererContext.showLoadingSpinner(false);
+    }
+
+    if (
+      apiKeysStatus === 'error' ||
+      songDetailsStatus === 'error' ||
+      keyGetterStatus === 'error'
+    ) {
+      setIsError(true);
+    }
+
+  }, [apiKeysStatus, songDetailsStatus, keyGetterStatus, songDetails])
 
   return (
     <>
-      <SongInfoContent songDetails={songDetails}/>
+      {isError && 'ups'}
+      {!isError && <SongInfoContent songDetails={songDetails}/>}
     </>
   );
 };

@@ -40,6 +40,7 @@
   }
 
   &.disabled {
+    cursor: default;
     background-color: rgb(207, 207, 207);
     border-color: grey;
     color: gray;

@@ -1,0 +1,267 @@
+{
+  "data": [
+      {
+          "id": "157666207",
+          "type": "shazam-songs"
+      }
+  ],
+  "resources": {
+      "artist-highlights": {
+          "159260351": {
+              "id": "159260351",
+              "type": "artist-highlights"
+          }
+      },
+      "track-highlights": {
+          "1445036536": {
+              "id": "1445036536",
+              "type": "track-highlights"
+          }
+      },
+      "related-tracks": {
+          "track-similarities-id-157666207": {
+              "id": "track-similarities-id-157666207",
+              "type": "related-tracks"
+          }
+      },
+      "songs": {
+          "1445765740": {
+              "id": "1445765740",
+              "type": "songs"
+          }
+      },
+      "albums": {
+          "1445765736": {
+              "id": "1445765736",
+              "type": "albums",
+              "attributes": {
+                  "artistName": "Taylor Swift",
+                  "name": "1989 (Big Machine Radio Release Special)",
+                  "releaseDate": "2014"
+              }
+          }
+      },
+      "shazam-artists": {
+          "42": {
+              "id": "42",
+              "type": "shazam-artists"
+          }
+      },
+      "artists": {
+          "159260351": {
+              "id": "159260351",
+              "type": "artists"
+          }
+      },
+      "lyrics": {
+          "29289714": {
+              "id": "29289714",
+              "type": "lyrics",
+              "attributes": {
+                  "text": [
+                      "Nice to meet you, where you been?",
+                      "I could show you incredible things",
+                      "Magic, madness, heaven, sin",
+                      "Saw you there and I thought",
+                      "\"Oh, my God, look at that face",
+                      "You look like my next mistake",
+                      "Love's a game, wanna play?\" Ay",
+                      "",
+                      "New money, suit and tie",
+                      "I can read you like a magazine",
+                      "Ain't it funny? Rumors fly",
+                      "And I know you heard about me",
+                      "So hey, let's be friends",
+                      "I'm dying to see how this one ends",
+                      "Grab your passport and my hand",
+                      "I can make the bad guys good for a weekend",
+                      "",
+                      "So it's gonna be forever",
+                      "Or it's gonna go down in flames",
+                      "You can tell me when it's over, mm",
+                      "If the high was worth the pain",
+                      "Got a long list of ex-lovers",
+                      "They'll tell you I'm insane",
+                      "'Cause you know I love the players",
+                      "And you love the game",
+                      "",
+                      "'Cause we're young, and we're reckless",
+                      "We'll take this way too far",
+                      "It'll leave you breathless, mm",
+                      "Or with a nasty scar",
+                      "Got a long list of ex-lovers",
+                      "They'll tell you I'm insane",
+                      "But I've got a blank space, baby",
+                      "And I'll write your name",
+                      "",
+                      "Cherry lips, crystal skies",
+                      "I could show you incredible things",
+                      "Stolen kisses, pretty lies",
+                      "You're the King, baby, I'm your Queen",
+                      "Find out what you want",
+                      "Be that girl for a month",
+                      "Wait, the worst is yet to come, oh, no",
+                      "",
+                      "Screaming, crying, perfect storms",
+                      "I can make all the tables turn",
+                      "Rose garden filled with thorns",
+                      "Keep you second guessing like",
+                      "\"Oh, my God, who is she?\"",
+                      "I get drunk on jealousy",
+                      "But you'll come back each time you leave",
+                      "'Cause, darling, I'm a nightmare dressed like a daydream",
+                      "",
+                      "So it's gonna be forever",
+                      "Or it's gonna go down in flames",
+                      "You can tell me when it's over, mm",
+                      "If the high was worth the pain",
+                      "Got a long list of ex-lovers",
+                      "They'll tell you I'm insane",
+                      "'Cause you know I love the players",
+                      "And you love the game",
+                      "",
+                      "'Cause we're young, and we're reckless (oh)",
+                      "We'll take this way too far",
+                      "It'll leave you breathless, mm (oh)",
+                      "Or with a nasty scar",
+                      "Got a long list of ex-lovers",
+                      "They'll tell you I'm insane (insane)",
+                      "But I've got a blank space, baby",
+                      "And I'll write your name",
+                      "",
+                      "Boys only want love if it's torture",
+                      "Don't say I didn't, say I didn't warn ya",
+                      "Boys only want love if it's torture",
+                      "Don't say I didn't, say I didn't warn ya",
+                      "",
+                      "So it's gonna be forever",
+                      "Or it's gonna go down in flames",
+                      "You can tell me when it's over (over)",
+                      "If the high was worth the pain",
+                      "Got a long list of ex-lovers",
+                      "They'll tell you I'm insane (I'm insane)",
+                      "'Cause you know I love the players",
+                      "And you love the game",
+                      "",
+                      "'Cause we're young, and we're reckless",
+                      "We'll take this way too far (ooh)",
+                      "It'll leave you breathless, mm",
+                      "Or with a nasty scar (leave a nasty scar)",
+                      "Got a long list of ex-lovers",
+                      "They'll tell you I'm insane",
+                      "But I've got a blank space, baby",
+                      "And I'll write your name"
+                  ],
+                  "footer": "Writer(s): Taylor Swift, Max Martin, Johan Shellback\nLyrics powered by www.musixmatch.com",
+                  "musixmatchLyricsId": "43410232",
+                  "providerName": "musixmatch",
+                  "syncAvailable": false
+              }
+          }
+      },
+      "shazam-songs": {
+          "157666207": {
+              "id": "157666207",
+              "type": "shazam-songs",
+              "attributes": {
+                  "type": "MUSIC",
+                  "title": "Blank Space",
+                  "artist": "Taylor Swift",
+                  "primaryArtist": "Taylor Swift",
+                  "label": "Big Machine Records, LLC",
+                  "explicit": false,
+                  "isrc": "USCJY1431309",
+                  "webUrl": "https://www.shazam.com/track/157666207/blank-space?co=US&offsetInMilliseconds=&timeSkew=&trackLength=",
+                  "images": {
+                      "artistAvatar": "https://is4-ssl.mzstatic.com/image/thumb/AMCArtistImages112/v4/a0/4f/3e/a04f3ec4-4476-1a80-6a3e-6b3641251099/8988402d-d267-4dee-bc51-881135b2ab58_ami-identity-994af5c375f4c3aa96cd6ced4a700799-2022-10-12T00-51-40.037Z_cropped.png/800x800cc.jpg",
+                      "coverArt": "https://is2-ssl.mzstatic.com/image/thumb/Music124/v4/b2/38/d3/b238d354-1aec-f71b-8706-26fcb1738b6d/00843930039562.rgb.jpg/400x400cc.jpg",
+                      "coverArtHq": "https://is2-ssl.mzstatic.com/image/thumb/Music124/v4/b2/38/d3/b238d354-1aec-f71b-8706-26fcb1738b6d/00843930039562.rgb.jpg/800x800cc.jpg"
+                  },
+                  "share": {
+                      "subject": "Blank Space - Taylor Swift",
+                      "text": "I used Shazam to discover Blank Space by Taylor Swift.",
+                      "image": "https://is2-ssl.mzstatic.com/image/thumb/Music124/v4/b2/38/d3/b238d354-1aec-f71b-8706-26fcb1738b6d/00843930039562.rgb.jpg/400x400cc.jpg",
+                      "twitter": "I used @Shazam to discover Blank Space by Taylor Swift.",
+                      "html": "https://www.shazam.com/snippets/email-share/157666207?lang=en-US&country=US",
+                      "snapchat": "https://www.shazam.com/partner/sc/track/157666207"
+                  },
+                  "genres": {
+                      "primary": "Pop"
+                  },
+                  "streaming": {
+                      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/20/3b/f8/203bf8a6-4f53-8e6b-ec00-8afd01241ebe/mzaf_3245104137492806502.plus.aac.ep.m4a",
+                      "deeplink": "intent://music.apple.com/us/album/blank-space/1445765736?i=1445765740&mttnagencyid=s2n&mttnsiteid=125115&mttn3pid=Apple-Shazam&mttnsub1=Shazam_android_am&mttnsub2=5348615A-616D-3235-3830-44754D6D5973&itscg=30201&app=music&itsct=Shazam_android_am#Intent;scheme=http;package=com.apple.android.music;action=android.intent.action.VIEW;end",
+                      "store": "https://play.google.com/store/apps/details?id=com.apple.android.music&referrer=utm_source=https%3A%2F%2Fmusic.apple.com%2Fsubscribe%3Fmttnagencyid%3Ds2n%26mttnsiteid%3D125115%26mttn3pid%3DApple-Shazam%26mttnsub1%3DShazam_android_am%26mttnsub2%3D5348615A-616D-3235-3830-44754D6D5973%26itscg%3D30201%26app%3Dmusic%26itsct%3DShazam_android_am"
+                  },
+                  "classicalAvailability": false
+              },
+              "relationships": {
+                  "artist-highlights": {
+                      "data": [
+                          {
+                              "id": "159260351",
+                              "type": "artist-highlights"
+                          }
+                      ]
+                  },
+                  "track-highlights": {
+                      "data": [
+                          {
+                              "id": "1445036536",
+                              "type": "track-highlights"
+                          }
+                      ]
+                  },
+                  "related-tracks": {
+                      "data": [
+                          {
+                              "id": "track-similarities-id-157666207",
+                              "type": "related-tracks"
+                          }
+                      ]
+                  },
+                  "songs": {
+                      "data": [
+                          {
+                              "id": "1445765740",
+                              "type": "songs"
+                          }
+                      ]
+                  },
+                  "albums": {
+                      "data": [
+                          {
+                              "id": "1445765736",
+                              "type": "albums"
+                          }
+                      ]
+                  },
+                  "shazam-artists": {
+                      "data": [
+                          {
+                              "id": "42",
+                              "type": "shazam-artists"
+                          }
+                      ]
+                  },
+                  "artists": {
+                      "data": [
+                          {
+                              "id": "159260351",
+                              "type": "artists"
+                          }
+                      ]
+                  },
+                  "lyrics": {
+                      "data": [
+                          {
+                              "id": "29289714",
+                              "type": "lyrics"
+                          }
+                      ]
+                  }
+              }
+          }
+      }
+  }
+}

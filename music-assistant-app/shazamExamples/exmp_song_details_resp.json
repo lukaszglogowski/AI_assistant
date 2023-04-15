@@ -1,0 +1,72 @@
+{
+  "data": [
+      {
+          "id": "1445765740",
+          "type": "songs",
+          "attributes": {
+              "albumName": "1989 (Big Machine Radio Release Special)",
+              "hasTimeSyncedLyrics": true,
+              "genreNames": [
+                  "Pop",
+                  "Music"
+              ],
+              "trackNumber": 4,
+              "releaseDate": "2014-10-27",
+              "durationInMillis": 231827,
+              "isVocalAttenuationAllowed": true,
+              "isMasteredForItunes": false,
+              "isrc": "USCJY1431309",
+              "artwork": {
+                  "width": 3000,
+                  "url": "https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/b2/38/d3/b238d354-1aec-f71b-8706-26fcb1738b6d/00843930039562.rgb.jpg/{w}x{h}bb.jpg",
+                  "height": 3000,
+                  "textColor3": "c8c9c2",
+                  "textColor2": "e8d0b4",
+                  "textColor4": "bfab96",
+                  "textColor1": "f4f5ec",
+                  "bgColor": "1b1b1b",
+                  "hasP3": false
+              },
+              "audioLocale": "en-US",
+              "composerName": "Taylor Swift, Shellback & Max Martin",
+              "playParams": {
+                  "id": "1445765740",
+                  "kind": "song"
+              },
+              "url": "https://music.apple.com/us/album/blank-space/1445765736?i=1445765740",
+              "discNumber": 1,
+              "hasLyrics": true,
+              "isAppleDigitalMaster": false,
+              "audioTraits": [
+                  "lossless",
+                  "lossy-stereo"
+              ],
+              "name": "Blank Space",
+              "previews": [
+                  {
+                      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/20/3b/f8/203bf8a6-4f53-8e6b-ec00-8afd01241ebe/mzaf_3245104137492806502.plus.aac.ep.m4a"
+                  }
+              ],
+              "artistName": "Taylor Swift"
+          },
+          "relationships": {
+              "albums": {
+                  "data": [
+                      {
+                          "id": "1445765736",
+                          "type": "albums"
+                      }
+                  ]
+              },
+              "artists": {
+                  "data": [
+                      {
+                          "id": "159260351",
+                          "type": "artists"
+                      }
+                  ]
+              }
+          }
+      }
+  ]
+}

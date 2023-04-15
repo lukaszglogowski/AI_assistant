@@ -1,4 +1,5 @@
 import { getEnv } from 'config';
+import queryString from 'query-string';
 import { URLSearchParams } from 'url';
 
 
@@ -30,7 +31,7 @@ export function createEndpoint<
     urlParams: KeyObject<URL_SEARCH_PARAMS>,
     requestBody: REQUEST_BODY
   ) {
-    const url = `${new URL(urlResolver(urlParameters)).toString()}?${new URLSearchParams(urlParams).toString()}` as const;
+    const url = `${new URL(urlResolver(urlParameters)).toString()}?${typeof urlParams === 'string' ? urlParams : queryString.stringify(urlParams)}` as const;
 
     return async function () {
       const res = await fetch(url, {

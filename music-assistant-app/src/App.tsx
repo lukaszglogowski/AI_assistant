@@ -22,7 +22,7 @@ function App() {
         clear: () => {setMessage('')}
       }}>
         <HistoryRendererManipulationContext.Provider value={{
-          pushToHistory: (entry: HistoryEntity<any>) => {
+          pushToHistory: <T,>(entry: HistoryEntity<T>) => {
             setHistory(history.concat(...history, entry))
           }
         }}>

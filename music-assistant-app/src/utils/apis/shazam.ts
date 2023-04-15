@@ -1,6 +1,6 @@
 import { getEnv } from 'config';
 import createEndpoint, { ApiConfigs } from 'utils/fetch';
-import { ShazamDetectSongSearchParams } from './shazam.types';
+import { ShazamDetectSongRequestBody, ShazamDetectSongResponseBody, ShazamDetectSongSearchParams, ShazamInfoKeysRequestBody, ShazamInfoKeysResponseBody, ShazamInfoKeysSearchParams, ShazamSongInfoRequestBody, ShazamSongInfoResponseBody, ShazamSongInfoSearchParams } from './shazam.types';
 
 const BASE_URL = getEnv('SHAZAM_API_BASE_URL')
 
@@ -25,7 +25,13 @@ export const SHAZAM_API = {
   },
   songs: {
     detect: {
-      POST: createEndpoint<{}, ShazamDetectSongSearchParams, string, {}>('POST', () => `${BASE_URL}/songs/v2/detect`)
-    }
+      POST: createEndpoint<{}, ShazamDetectSongSearchParams, ShazamDetectSongRequestBody, ShazamDetectSongResponseBody>('POST', () => `${BASE_URL}/songs/v2/detect`)
+    },
+    details: {
+      GET:createEndpoint<{}, ShazamSongInfoSearchParams, ShazamSongInfoRequestBody, ShazamSongInfoResponseBody>('GET', () => `${BASE_URL}/songs/v2/get-details`)
+    },
+  },
+  infoKeys: {
+    GET: createEndpoint<{}, ShazamInfoKeysSearchParams, ShazamInfoKeysRequestBody, ShazamInfoKeysResponseBody>('GET', () => `${BASE_URL}/shazam-songs/get-details`)
   }
 } satisfies ApiConfigs;

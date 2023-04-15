@@ -6,7 +6,7 @@ import { RecordingManagement } from 'features/RecordingManagement';
 import { ResultContentManager } from 'features/ResultContentManagment';
 import MessageContext from 'contexts/MessageContext';
 import { HistoryRenderer } from 'features/HistoryRenderer';
-import HistoryRendererManipulationContext from 'contexts/HistoryRendereManipulationContext';
+import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
 import { History, HistoryEntity } from 'features/HistoryRenderer/HistoryRenderer.types';
 
 function App() {
@@ -21,9 +21,12 @@ function App() {
         setMessage: setMessage,
         clear: () => {setMessage('')}
       }}>
-        <HistoryRendererManipulationContext.Provider value={{
+        <HistoryManipulationContext.Provider value={{
           pushToHistory: <T,>(entry: HistoryEntity<T>) => {
             setHistory(history.concat(...history, entry))
+          },
+          resetHistoryAndPush: <T,>(entry: HistoryEntity<T>) => {
+            setHistory([entry])
           }
         }}>
           <RecordingManagement/>
@@ -32,7 +35,7 @@ function App() {
             history={history}
             onBackButtonClick={() => {setHistory(history.slice(0, -1))}}
           />
-        </HistoryRendererManipulationContext.Provider>
+        </HistoryManipulationContext.Provider>
       </MessageContext.Provider>
     </PageLayout>
   )

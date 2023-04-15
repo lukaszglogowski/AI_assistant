@@ -35,6 +35,11 @@
   }
 }
 
+.content {
+  flex: 1 1 auto;
+  position: relative;
+}
+
 @media (prefers-color-scheme: dark) {
   .content-box-style {
     border-color: white;

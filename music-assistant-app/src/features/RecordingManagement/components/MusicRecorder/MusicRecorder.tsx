@@ -10,7 +10,7 @@ import { getAudioContext, getAudioStream, processAudioBufferToShazam } from 'uti
 import { arrayBuffer } from 'stream/consumers';
 import { useSignal } from 'utils/hooks/useSignal';
 import Recorder from 'recorder-js';
-import HistoryRendererManipulationContext from 'contexts/HistoryRendereManipulationContext';
+import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
 import { SongInfoPage } from 'features/HistoryPages/SongInfoPage';
 import { SHAZAM_API } from 'utils/apis/shazam';
 import { ShazamDetectSongResponseBody } from 'utils/apis/shazam.types';
@@ -42,7 +42,7 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
   const [recorder, setRecorder] = useState<Recorder>();
   const [audioStream, setAudioStream] = useState<MediaStream>();
 
-  const history = useContext(HistoryRendererManipulationContext);
+  const history = useContext(HistoryManipulationContext);
 
   const timerClassObj = buildCssClass({
     [styles['timer']]: true,
@@ -87,7 +87,8 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
       const processAudio = async () => {
         const result = await recorder.stop();
         const base64 = processAudioBufferToShazam(result.buffer[0]);
-        history.pushToHistory({
+        
+        history.resetHistoryAndPush({
           history: {
             component: SongInfoPage<ShazamDetectSongResponseBody>,
             props: {

@@ -1,12 +1,13 @@
-import { HistoryEntity } from 'features/HistoryRenderer/HistoryRenderer.types';
 import React from 'react';
 
 export type HistoryRendererManipulationContextType = {
-  pushToHistory: <T>(entry: HistoryEntity<T>) => void;
+  showLoadingSpinner: (boolean: boolean) => void;
+  isSpinnerVisible: boolean;
 }
 
 export const HistoryRendererManipulationContext = React.createContext<HistoryRendererManipulationContextType>({
-  pushToHistory: () => {},
+  showLoadingSpinner: () => {},
+  isSpinnerVisible: false,
 })
 
 export default HistoryRendererManipulationContext;

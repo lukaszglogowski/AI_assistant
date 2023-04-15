@@ -3,11 +3,7 @@ import { useQuery } from 'react-query';
 import { SHAZAM_API } from 'utils/apis/shazam';
 import SongInfoContent from './SongInfoContent/SongInfoContent';
 import HistoryRendererManipulationContext from 'contexts/HistoryRendererManipultaionContext';
-
-type InitResolveStateT = {
-  isResolving: boolean;
-  isError: boolean;
-}
+import { ErrorMessage } from 'components/ErrorMesasge';
 
 export type SongInfoPageProps<T> = {
   songKey: string | {
@@ -77,7 +73,8 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
     if (
       apiKeysStatus === 'error' ||
       songDetailsStatus === 'error' ||
-      keyGetterStatus === 'error'
+      keyGetterStatus === 'error' ||
+      (songDetailsStatus === 'success' && !(songDetails && songDetails?.data.length > 0))
     ) {
       setIsError(true);
     }
@@ -86,8 +83,8 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
 
   return (
     <>
-      {isError && 'ups'}
-      {!isError && <SongInfoContent songDetails={songDetails}/>}
+      {true && <ErrorMessage>Nie znaleziono utworu</ErrorMessage>}
+      {false && <SongInfoContent songDetails={songDetails}/>}
     </>
   );
 };

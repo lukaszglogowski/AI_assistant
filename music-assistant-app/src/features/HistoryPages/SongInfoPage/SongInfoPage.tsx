@@ -22,6 +22,8 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
 
   useEffect(() => {
     setIsError(false);
+    historyRendererContext.updateHistoryTitle('');
+
     if (typeof props.songKey === 'string') {
       setKey(props.songKey);
       setKeyGetterStatus('success');

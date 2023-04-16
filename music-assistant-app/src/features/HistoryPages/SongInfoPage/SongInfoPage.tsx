@@ -81,10 +81,17 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
 
   }, [apiKeysStatus, songDetailsStatus, keyGetterStatus, songDetails])
 
+
+  useEffect(() => {
+    if (!(songDetails && songDetails?.data.length > 0)) return;
+
+    historyRendererContext.updateHistoryTitle(`Znaleziono: ${songDetails.data[0].attributes.name}dsffffffffffffffffffffffffffssssssssssssssssssssssssss`)
+  }, [songDetails])
+
   return (
     <>
-      {true && <ErrorMessage>Nie znaleziono utworu</ErrorMessage>}
-      {false && <SongInfoContent songDetails={songDetails}/>}
+      {isError && <ErrorMessage>Nie znaleziono utworu</ErrorMessage>}
+      {!isError && <SongInfoContent songDetails={songDetails}/>}
     </>
   );
 };

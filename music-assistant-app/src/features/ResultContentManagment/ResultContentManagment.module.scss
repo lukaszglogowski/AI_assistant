@@ -31,6 +31,15 @@
       margin-left: 1em;
       display: flex;
       align-items: center;
+      margin-right: auto;
+
+      overflow: hidden;
+
+      & > span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
   }
 }

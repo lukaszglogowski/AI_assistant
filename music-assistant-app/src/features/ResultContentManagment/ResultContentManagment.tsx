@@ -25,11 +25,14 @@ const containerClassObj = buildCssClass({
 
 export const ResultContentManager = (props: ResultContentManagerProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [title, setTitle] = useState('')
 
   return (
     <HistoryRendererManipulationContext.Provider value={{
       showLoadingSpinner: (v) => setIsLoading(v),
-      isSpinnerVisible: isLoading
+      isSpinnerVisible: isLoading,
+      historyTitle: title,
+      updateHistoryTitle: (t) => setTitle(t),
     }}>
       <div className={containerClassObj}>
         <div className={styles['header']}>
@@ -41,7 +44,7 @@ export const ResultContentManager = (props: ResultContentManagerProps) => {
             <MdKeyboardBackspace/>
           </IconButton>
           <div className={styles['title']}>
-            title
+            <span>{title}</span>
           </div>
         </div>
         <Divider/>

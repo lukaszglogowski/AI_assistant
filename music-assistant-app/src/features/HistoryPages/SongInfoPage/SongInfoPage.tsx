@@ -21,6 +21,7 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
+    setIsError(false);
     if (typeof props.songKey === 'string') {
       setKey(props.songKey);
       setKeyGetterStatus('success');
@@ -37,7 +38,7 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
         setKeyGetterStatus('error');
       })
     }
-  }, [])
+  }, [props.songKey])
 
   const {
     status: apiKeysStatus,
@@ -85,7 +86,7 @@ export const SongInfoPage = <T, >(props: SongInfoPageProps<T>) => {
   useEffect(() => {
     if (!(songDetails && songDetails?.data.length > 0)) return;
 
-    historyRendererContext.updateHistoryTitle(`Znaleziono: ${songDetails.data[0].attributes.name}dsffffffffffffffffffffffffffssssssssssssssssssssssssss`)
+    historyRendererContext.updateHistoryTitle(`Znaleziono: ${songDetails.data[0].attributes.name}`)
   }, [songDetails])
 
   return (

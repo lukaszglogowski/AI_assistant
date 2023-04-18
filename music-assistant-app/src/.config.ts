@@ -5,7 +5,10 @@ export const config: any = {
 }
 
 export function getEnv(variable: string, defaultValue: any = null) {
-  const v = config[variable];
+  let v = config[variable];
+  if (!v) {
+    v = import.meta.env[variable]
+  }
   return v === undefined ? defaultValue : v
 }
 

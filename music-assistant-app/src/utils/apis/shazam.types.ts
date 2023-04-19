@@ -185,3 +185,43 @@ export type ShazamSongInfoResponseBody = {
     relationships: RelationShipsType<'songs'>;
   }[]
 };
+
+
+export type YoutubeSongInfoSearchParams = {
+  query: string
+};
+
+export type YoutubeSongInfoRequestBody = null;
+
+export type YoutubeSongInfoResponseBody = {
+  continuation: string;
+  estimatedResults: string;
+  data: {
+    type: string;
+    videoId: string;
+    title: string;
+    channelTitle: string;
+    channelId: string;
+    description: string;
+    viewCount: string;
+    publishedText: string;
+    lengthText: string;
+    thumbnail: {
+      url: string;
+      width: number;
+      height: number;
+    }[];
+    richThumbnail: {
+      url: string;
+      width: number;
+      height: number;
+    }[];
+    channelThumbnail: {
+      url: string;
+      width: number;
+      height: number;
+    }[];
+  }[];
+  msg: string;
+  refinements: string[];
+};

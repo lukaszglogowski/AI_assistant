@@ -1,0 +1,35 @@
+.song-info-container {
+    padding-left: 1em;
+    margin-bottom: 0.5em;
+}
+
+
+.button {
+    width: 7em;
+    height: 7em;
+  
+    border-radius: 50%;
+    border-color: red;
+    border-style: solid;
+    border-width: 2px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    
+    cursor: pointer;
+  
+    &.disabled {
+      cursor: default;
+      background-color: rgb(207, 207, 207);
+      border-color: grey;
+      color: gray;
+  
+      &.active {
+        background-color: red;
+        color: rgb(207, 207, 207);
+      }
+    }
+}
+  

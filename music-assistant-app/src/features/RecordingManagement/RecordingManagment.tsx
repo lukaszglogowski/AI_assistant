@@ -29,7 +29,7 @@ export const RecordingManagement = (props: RecordingManagementProps) => {
   }
 
   return (
-    <>
+    <div className={styles['container']}>
       <div className={styles['recording-box']}>
         <CommandRecorder
           onActiveStateChange={commandStateChanged}
@@ -43,7 +43,7 @@ export const RecordingManagement = (props: RecordingManagementProps) => {
         </div>
       </div>
       <MessageDisplayer/>
-    </>
+    </div>
   );
 }
 

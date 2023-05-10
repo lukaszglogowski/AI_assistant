@@ -17,12 +17,17 @@ export const PageLayout = (props: PageLayoutProps) => {
     [styles['content']]: true,
   };
 
+  const footerClassObj = {
+    [styles['footer']]: true,
+  };
+
   return (
     <div className={buildCssClass(classObj)}>
       <TopBar/>
       <div className={buildCssClass(contentClassObj)}>
         {props.children}
       </div>
+      <div className={buildCssClass(footerClassObj)}></div>
     </div>
   )
 };

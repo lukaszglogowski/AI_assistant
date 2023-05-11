@@ -19,7 +19,8 @@ export const IconButton = (props: IconButtonProps) => {
 
   return (
     <div
-      className={buildCssClass(classObj)}
+      style={props.style}
+      className={buildCssClass(classObj, props.className ? props.className : '')}
       onClick={(e) => {
         props.onClick && !props.disabled && props.onClick(e);
       }}

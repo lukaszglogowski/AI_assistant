@@ -407,18 +407,19 @@ export type ShazamAlbumInfoResponseBody = {
 
 
 
-
-export type YoutubeSongInfoSearchParams = {
-  query: string
+export type YoutubeQueryType = 'video' | 'channel';
+export type YoutubeSongInfoSearchParams<Type extends YoutubeQueryType> = {
+  query: string;
+  type?: Type;
 };
 
 export type YoutubeSongInfoRequestBody = null;
 
-export type YoutubeSongInfoResponseBody = {
+export type YoutubeSongInfoResponseBody<Type extends YoutubeQueryType> = {
   continuation: string;
   estimatedResults: string;
-  data: {
-    type: string;
+  data: (Type extends 'video' ? {
+    type: 'video';
     videoId: string;
     title: string;
     channelTitle: string;
@@ -442,7 +443,21 @@ export type YoutubeSongInfoResponseBody = {
       width: number;
       height: number;
     }[];
-  }[];
+  } : 
+  Type extends 'channel' ? {
+    type: 'channel';
+    channelId: string;
+    title: string;
+    channelTitle: string;
+    description: string;
+    thumbnail: {
+      url: URLString;
+      width: number;
+      height: number;
+    }[]
+    videoCount: number;
+    subscriberCount: string;
+  }: never)[];
   msg: string;
   refinements: string[];
 };

@@ -1,0 +1,53 @@
+
+.container {
+  width: 100%;
+  //border-radius: 1rem;
+  display: flex;
+}
+
+.button {
+  flex: 1 1 0px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  font-size: 18px;
+
+  border-width: 2px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-style: solid;
+
+  cursor: pointer;
+
+  &:first-child {
+    border-radius: 1rem 0 0 1rem;
+    border-left-width: 2px;
+
+  }
+
+  &:last-child {
+    border-radius: 0 1rem 1rem 0;
+    border-right-width: 2px;
+  }
+
+  border-color: #242424;
+  &.active {
+    background-color: #242424;
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+
+  }
+  
+  .button {
+    border-color: white;
+    &.active {
+      background-color: white;
+      color: #242424;
+    }
+  }
+}

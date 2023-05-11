@@ -1,0 +1,53 @@
+
+
+.container {
+  $parent: &;
+  display: flex;
+  padding: 0.75em 0;
+  border-top: 1px solid;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  img {
+    width: 4em;
+    height: 4em;
+    margin-right: 1em;
+  }
+
+  .yt-btn {
+    font-size: 1.25rem;
+  }
+
+  .name {
+    flex: 1 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid ;
+  }
+
+  &:hover {
+    border-top-width: 2px;
+    &:last-child {
+      border-bottom-width: 2px;
+    }
+
+    & + #{$parent} {
+      border-top-width: 2px;
+    }
+  }
+
+
+  
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .collapsable-button {
+  
+  }
+}

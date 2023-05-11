@@ -9,7 +9,7 @@ import { AiFillYoutube } from "react-icons/ai";
 
 export type SongInfoContentProps = {
   songDetails?: ShazamSongInfoResponseBody;
-  songTitle?: YoutubeSongInfoResponseBody;
+  songTitle?: YoutubeSongInfoResponseBody<'video'>;
 };
 
 export const SongInfoContent = (props: SongInfoContentProps) => {

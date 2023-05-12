@@ -4,6 +4,7 @@ import { ChildrenProps } from 'utils/propsTypes';
 import { TopBar } from '../TopBar';
 
 import styles from './PageLayout.module.scss';
+import ModalSystem from '../ModalSystem/ModalSystem';
 
 export type PageLayoutProps = ChildrenProps;
 
@@ -23,11 +24,13 @@ export const PageLayout = (props: PageLayoutProps) => {
 
   return (
     <div className={buildCssClass(classObj)}>
-      <TopBar/>
-      <div className={buildCssClass(contentClassObj)}>
-        {props.children}
-      </div>
-      <div className={buildCssClass(footerClassObj)}></div>
+      <ModalSystem>
+        <TopBar/>
+        <div className={buildCssClass(contentClassObj)}>
+          {props.children}
+        </div>
+        <div className={buildCssClass(footerClassObj)}></div>
+      </ModalSystem>
     </div>
   )
 };

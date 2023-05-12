@@ -8,6 +8,7 @@ import { OnClickProps } from 'utils/propsTypes';
 export type ArtistRowProps = {
   name: string;
   imgUrl: URLString;
+  btnDisabled?: boolean;
   onYtClick?: (event: React.MouseEvent<HTMLElement>) => void;
 } & OnClickProps;
 
@@ -18,7 +19,7 @@ export const ArtistRow = (props: ArtistRowProps) => {
       <div className={styles['name']}>
         {props.name}
       </div>
-      <YtButton className={styles['yt-btn']} onClick={props.onYtClick}/>
+      <YtButton disabled={props.btnDisabled} className={styles['yt-btn']} onClick={props.onYtClick}/>
     </div>
   );
 }

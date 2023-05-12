@@ -10,13 +10,25 @@ import { createCommands } from 'commands/commands';
 
 import styles from './CommandRecorder.module.scss';
 import { ActiveStateUpdateProps } from 'features/RecordingManagement/types';
+import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
+import { SearchResultPage } from 'features/HistoryPages/SearchResultPage';
 
 export type CommandRecorderProps = ActiveStateUpdateProps & {};
 
+
 export const CommandRecorder = (props: CommandRecorderProps) => {
   const context = useContext(MessageContext);
+  const history = useContext(HistoryManipulationContext);
   const [commands, _] = useState(createCommands({
-    DateTime: (msg) => context.setMessage(msg)
+    DateTime: (msg) => context.setMessage(msg),
+    ShazamSearch: (term) => history.resetHistoryAndPush({
+      history: {
+        component: SearchResultPage,
+        props: {
+          term: term
+        },
+      },
+    })
   }));
 
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
@@ -40,7 +52,7 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
 
   useEffect(() => {
     if (isButtonActive) {
-      SpeechRecognition.startListening();
+      SpeechRecognition.startListening({ language: 'pl-PL' });
       resetTranscript();
     } else {
       SpeechRecognition.stopListening();

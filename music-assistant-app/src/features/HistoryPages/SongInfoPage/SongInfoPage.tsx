@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { SHAZAM_API } from "utils/apis/shazam";
-import SongInfoContent from "./SongInfoContent/SongInfoContent";
+import SongInfoContent from "../components/SongInfoContent/SongInfoContent";
 import HistoryRendererManipulationContext from "contexts/HistoryRendererManipultaionContext";
 import { ErrorMessage } from "components/ErrorMesasge";
 import {
@@ -80,7 +80,7 @@ export const SongInfoPage = <T,>(props: SongInfoPageProps<T>) => {
 
   const { status: searchDetailsStatus, data: songTitle } = useQuery({
     queryKey: ["searchDetails", songDetails],
-    queryFn: YOUTUBE_API.songName.GET({}, { query: songName! }, null),
+    queryFn: YOUTUBE_API.searchVideo.GET({}, { query: songName! }, null),
     enabled: !!songName,
   });
 

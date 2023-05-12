@@ -1,9 +1,12 @@
-import React from "react";
+import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
+import { SearchResultPage } from 'features/HistoryPages/SearchResultPage';
+import React, { useContext } from "react";
 
 export const CommandEnum = {
   DateTime: 'DateTime',
   Youtube: 'Youtube',
-  Wikipedia: 'Wikipedia'
+  Wikipedia: 'Wikipedia',
+  ShazamSearch: 'ShazamSearch',
 } as const;
 
 export type CommandEnumT = keyof typeof CommandEnum;
@@ -61,6 +64,20 @@ export function createCommands(effects: {[key in CommandEnumT]?: (...args: any[]
         <>
           Otwiera nową kartę w przeglądarce ze stroną Youtube i wyszukuje w niej podaną frazę<br/>
           Przykład: <strong>'Wyszukaj w Youtube pies'</strong>
+        </>
+      )
+    },
+    {
+      commandId: 'ShazamSearch',
+      commandName: 'Wyszukaj',
+      command: ['Wyszukaj *'],
+      callback: (search) => {
+        effects.ShazamSearch && effects.ShazamSearch(search)
+      },
+      description: (
+        <>
+          Wyszukuje informacji o autorach i utworach na bazie podanej frazy<br/>
+          Przykład: <strong>'Wyszukaj pink floyd'</strong>
         </>
       )
     },

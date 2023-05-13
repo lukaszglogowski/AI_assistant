@@ -27,7 +27,7 @@ type GenericIdSearchParams = {
   id: string;
 };
 
-type ShareObject = {
+export type ShareObject = {
   href?: URLString;
   avatar?: URLString;
   subject: string;
@@ -38,7 +38,7 @@ type ShareObject = {
   snapchat: URLString;
 };
 
-type ArtworkObject = {
+export type ArtworkObject = {
   width: number;
   url: URLString;
   height: number;
@@ -50,15 +50,15 @@ type ArtworkObject = {
   hasP3: boolean;
 }
 
-type ImagesObject = {
-  artistAvatar: URLString;
-  coverArt: URLString;
-  coverArtHq: URLString;
+export type ImagesObject = {
+  artistavatar: URLString;
+  coverart: URLString;
+  coverartHq: URLString;
   joecolor?: string;
 };
 
 
-type ArtistSearchObject = {
+export type ArtistSearchObject = {
   avatar: URLString;
   id: string;
   name: string;
@@ -67,7 +67,7 @@ type ArtistSearchObject = {
   adamid: string;
 }
 
-type SongSearchObject = {
+export type SongSearchObject = {
   layout: string;
   type: string;
   key: string;
@@ -84,7 +84,7 @@ type SongSearchObject = {
 
 
 
-type SongAttributes = {
+export type SongAttributes = {
   albumName: string;
   hasTimeSyncedLyrics: boolean;
   genreNames: string[];
@@ -114,7 +114,7 @@ type SongAttributes = {
 }
 
 
-type ArtistAttributes = {
+export type ArtistAttributes = {
   genreNames: string[];
   name: string;
   artwork: ArtworkObject;
@@ -126,7 +126,7 @@ type ArtistAttributes = {
   url?: URLString;
 }
 
-type AlbumAttributes = {
+export type AlbumAttributes = {
   copyright: string;
   genreNames: string[];
   releaseDate: string; 
@@ -141,7 +141,7 @@ type AlbumAttributes = {
   recordLabel: string;
   isCompilation: boolean;
   trackCount: number;
-  isPrerelease: string;
+  isPrerelease: boolean;
   audioTraits: string[];
   isSingle: boolean;
   name: string;
@@ -407,7 +407,38 @@ export type ShazamAlbumInfoResponseBody = {
 
 
 
-export type YoutubeQueryType = 'video' | 'channel';
+export type ShazamAuthorTopSongsInfoSearchParams = GenericIdSearchParams & {
+  l?: string;
+}
+
+export type ShazamAuthorTopSongsInfoRequestBody = null;
+
+export type ShazamAuthorTopSongsInfoResponseBody = {
+  data: {
+    id: string;
+    type: 'songs';
+    attributes: SongAttributes;
+  }[];
+}
+
+
+export type ShazamAuthorLatestReleaseInfoSearchParams = GenericIdSearchParams & {
+  l?: string;
+}
+
+export type ShazamAuthorLatestReleaseInfoRequestBody = null;
+
+export type ShazamAuthorLatestReleaseInfoResponseBody = {
+  data: {
+    id: string;
+    type: 'songs' | 'albums';
+    attributes: SongAttributes | AlbumAttributes;
+  }[];
+}
+
+
+
+export type YoutubeQueryType = 'video' | 'channel' | 'playlist';
 export type YoutubeSongInfoSearchParams<Type extends YoutubeQueryType> = {
   query: string;
   type?: Type;
@@ -457,7 +488,26 @@ export type YoutubeSongInfoResponseBody<Type extends YoutubeQueryType> = {
     }[]
     videoCount: number;
     subscriberCount: string;
-  }: never)[];
+  } : 
+  Type extends 'playlist' ? {
+    type: 'playlist';
+    playlistId: string;
+    title: string;
+    channelTitle: string;
+    channelId: string;
+    videoId: string;
+    thumbnail: {
+      url: URLString;
+      width: number;
+      height: number;
+    }[]
+    videoCount: number;
+    videis: {
+      videoId: string;
+      title: string;
+      lengthText: string;
+    }
+  } : never)[];
   msg: string;
   refinements: string[];
 };

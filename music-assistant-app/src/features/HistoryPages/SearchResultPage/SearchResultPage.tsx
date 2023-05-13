@@ -21,6 +21,7 @@ export type SearchResultPageProps = {
 
 export const SearchResultPage = (props: SearchResultPageProps) => {
   const historyRendererContext = useContext(HistoryRendererManipulationContext);
+  const historyContext = useContext(HistoryManipulationContext);
   const modalSystem = useContext(ModalSystemContext)
 
   const [listComps, setListComponent] = useState<{songs: JSX.Element[], artists:JSX.Element[]}>({songs: [], artists: []});
@@ -37,28 +38,24 @@ export const SearchResultPage = (props: SearchResultPageProps) => {
         return
     }
     const songs = searchResults.tracks.hits.map((t, i) => (
-        <SongRow key={i + '_' + t.track.key} title={t.track.title} artist={t.track.subtitle} imgUrl={t.track.images.coverArt}
-        onYtClick={() => {
-            getFirstVideo(t.track.title + ' ' + t.track.subtitle).then(vid => {
-                if (!vid) {throw new Error('Nie znaleziono wideo');}
-                openNewTab(generateYoutubeLink(vid!.videoId, 'video'))
-            }).catch((err) => {
-                openErrorMessage(modalSystem, err.toString());
-            })
-        }}
+        <SongRow key={i + '_' + t.track.key} data={{title: t.track.title, artist: t.track.subtitle, imgUrl: t.track.images.coverart}}
+        events={{onYtClick: getGenericYtButtonEventVideo(modalSystem, t.track.title + ' ' + t.track.subtitle)}}
         ></SongRow>
     ));
     
     const artists = searchResults.artists.hits.map((a, i) => {
         //const [disabled, setDisabled] = useState(false);
-        return (<ArtistRow key={i + '_' + a.artist.name} name={a.artist.name} imgUrl={a.artist.avatar}
-        onYtClick={() => {
-            getFirstChannel(a.artist.name).then(ch => {
-                if (!ch) {throw new Error('Nie znaleziono kanału');}
-                openNewTab(generateYoutubeLink(ch.channelId, 'channel'))
-            }).catch((err) => {
-                openErrorMessage(modalSystem, err.toString());
-            });
+        return (<ArtistRow key={i + '_' + a.artist.name} data={{name: a.artist.name, imgUrl: a.artist.avatar}}
+        events={{
+            onYtClick: getGenericYtButtonEventChannel(modalSystem, a.artist.name),
+            onRowClick: () => {
+                historyContext.pushToHistory({
+                    history: {
+                        component: AuthorInfoPage,
+                        props: {adamid: a.artist.adamid},
+                    }
+                })
+            }
         }}
         ></ArtistRow>)}
     );

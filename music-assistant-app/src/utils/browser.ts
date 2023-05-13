@@ -7,3 +7,8 @@ export function openNewTab(link: URLString): void {
     "noopener,noreferrer"
   )
 }
+
+export function generateImgLinkFromShazam(link: URLString, width: number, height: number) {
+  const c = link + '';
+  return c.replace('{w}', width + '').replace('{h}', height + '')
+}

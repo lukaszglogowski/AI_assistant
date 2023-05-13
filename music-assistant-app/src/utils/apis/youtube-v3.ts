@@ -12,5 +12,8 @@ export const YOUTUBE_API = {
   },
   searchChannel: {
     GET: createYoutubeEndpoint<{}, YoutubeSongInfoSearchParams<'channel'>, YoutubeSongInfoRequestBody, YoutubeSongInfoResponseBody<'channel'>>('GET', () => `${BASE_URL}/search`)
+  },
+  searchPlaylist: {
+    GET: createYoutubeEndpoint<{}, YoutubeSongInfoSearchParams<'playlist'>, YoutubeSongInfoRequestBody, YoutubeSongInfoResponseBody<'playlist'>>('GET', () => `${BASE_URL}/search`)
   }
 } satisfies ApiConfigs;

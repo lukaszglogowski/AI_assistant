@@ -1,34 +1,38 @@
 
 
 import { URLString } from 'utils/genericTypes.types';
-import styles from './SongRow.module.scss';
+import styles from './AlbumRow.module.scss';
 import { YtButton } from '../YtButton';
 import { OnClickProps } from 'utils/propsTypes';
-import { SongAttributes } from 'utils/apis/shazam.types';
+import { AlbumAttributes } from 'utils/apis/shazam.types';
+import { generateYoutubeLink, getFirstChannel } from 'utils/youtube';
+import { openErrorMessage } from 'components/ModalMessagesTypes/ErrorMessage';
 import { generateImgLinkFromShazam } from 'utils/browser';
 import { buildCssClass } from 'utils/css/builders';
 
-export type SongRowEventsProps = {
+export type AlbumRowEventsProps = {
   onRowClick?: (event: React.MouseEvent<HTMLElement>) => void;
   onYtClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-export type SongRowOptionsProps = {
+export type AlbumRowOptionsProps = {
   dividers?: boolean;
 }
 
-export type SongRowProps = {
+export type AlbumRowProps = {
   data: {
-    title: string;
+    name: string;
     artist: string;
     imgUrl: URLString;
+    genreNames: string[];
+    releaseDate: string;
+    trackCount: number;
   }
-  events?: SongRowEventsProps;
-  options?: SongRowOptionsProps;
+  events?: AlbumRowEventsProps;
+  options?: AlbumRowOptionsProps;
 };
 
-export const SongRow = (props: SongRowProps) => {
-
+export const AlbumRow = (props: AlbumRowProps) => {
   const containerCss = buildCssClass({
     [styles['container']]: true,
     [styles['clickable']]: !!props.events?.onRowClick,
@@ -39,7 +43,7 @@ export const SongRow = (props: SongRowProps) => {
     <div className={containerCss} onClick={props.events?.onRowClick}>
       <img src={props.data.imgUrl as string}/>
       <div className={styles['ta-container']}>
-        <div className={styles['title']}>{props.data.title}</div>
+        <div className={styles['title']}>{props.data.name}</div>
         <div className={styles['artist']}>{props.data.artist}</div>
       </div>
       {props.events?.onYtClick && <YtButton className={styles['yt-btn']} onClick={props.events?.onYtClick}/>}
@@ -47,19 +51,22 @@ export const SongRow = (props: SongRowProps) => {
   );
 }
 
-SongRow.defaultProps = {};
+AlbumRow.defaultProps = {};
 
-export function songDataToAlbumRowProps(data: SongAttributes, events: SongRowEventsProps, options: SongRowOptionsProps): SongRowProps {
+export function albumDataToAlbumRowProps(data: AlbumAttributes, events: AlbumRowEventsProps, options: AlbumRowOptionsProps): AlbumRowProps {
 
   return {
     data: {
-      title: data.name,
+      name: data.name,
       artist: data.artistName,
       imgUrl: generateImgLinkFromShazam(data.artwork.url, 256, 256),
+      genreNames: data.genreNames,
+      releaseDate: data.releaseDate,
+      trackCount: data.trackCount,
     },
     events: events,
     options: options,
   }
 }
 
-export default SongRow;
+export default AlbumRow;

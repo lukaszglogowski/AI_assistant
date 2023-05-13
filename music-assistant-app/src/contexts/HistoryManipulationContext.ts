@@ -3,7 +3,7 @@ import React from 'react';
 
 export type HistoryManipulationContextType = {
   pushToHistory: <T>(entry: HistoryEntity<T>) => void;
-  resetHistoryAndPush: <T>(entr: HistoryEntity<T>) => void;
+  resetHistoryAndPush: <T>(entry: HistoryEntity<T>) => void;
 }
 
 export const HistoryManipulationContext = React.createContext<HistoryManipulationContextType>({

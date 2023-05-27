@@ -1,0 +1,58 @@
+
+.container {
+  padding-top: 2rem;
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    img {
+      width: 8rem;
+    }
+
+    .name-info {
+      margin-left: 4rem;
+      
+      .name {
+        font-size: 32px;
+      }
+      .genres {
+        margin-top: 1rem;
+        font-style: italic;
+      }
+    }
+  }
+
+  .header {
+    padding-left: 1rem;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .latest-release-container {
+    margin-top: 2rem;
+
+    .release {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+  }
+
+  .albums-container {
+    margin-top: 2rem;
+
+    .albums {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+  }
+
+  .top-songs-container {
+    margin-top: 2rem;
+
+    .top-songs {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+  }
+
+}

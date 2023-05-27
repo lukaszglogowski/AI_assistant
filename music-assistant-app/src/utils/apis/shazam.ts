@@ -1,6 +1,6 @@
 import { getEnv } from 'config';
 import createEndpoint, { ApiConfigs } from 'utils/fetch';
-import { ShazamAlbumInfoRequestBody, ShazamAlbumInfoResponseBody, ShazamAlbumInfoSearchParams, ShazamArtistInfoRequestBody, ShazamArtistInfoResponseBody, ShazamArtistInfoSearchParams, ShazamArtistSummaryInfoRequestBody, ShazamArtistSummaryInfoResponseBody, ShazamArtistSummaryInfoSearchParams, ShazamDetectSongRequestBody, ShazamDetectSongResponseBody, ShazamDetectSongSearchParams, ShazamInfoKeysRequestBody, ShazamInfoKeysResponseBody, ShazamInfoKeysSearchParams, ShazamSearchRequestBody, ShazamSearchResponseBody, ShazamSearchSearchParams, ShazamSongInfoRequestBody, ShazamSongInfoResponseBody, ShazamSongInfoSearchParams } from './shazam.types';
+import { ShazamAlbumInfoRequestBody, ShazamAlbumInfoResponseBody, ShazamAlbumInfoSearchParams, ShazamArtistInfoRequestBody, ShazamArtistInfoResponseBody, ShazamArtistInfoSearchParams, ShazamArtistSummaryInfoRequestBody, ShazamArtistSummaryInfoResponseBody, ShazamArtistSummaryInfoSearchParams, ShazamAuthorLatestReleaseInfoRequestBody, ShazamAuthorLatestReleaseInfoResponseBody, ShazamAuthorLatestReleaseInfoSearchParams, ShazamAuthorTopSongsInfoRequestBody, ShazamAuthorTopSongsInfoResponseBody, ShazamAuthorTopSongsInfoSearchParams, ShazamDetectSongRequestBody, ShazamDetectSongResponseBody, ShazamDetectSongSearchParams, ShazamInfoKeysRequestBody, ShazamInfoKeysResponseBody, ShazamInfoKeysSearchParams, ShazamSearchRequestBody, ShazamSearchResponseBody, ShazamSearchSearchParams, ShazamSongInfoRequestBody, ShazamSongInfoResponseBody, ShazamSongInfoSearchParams } from './shazam.types';
 
 const BASE_URL = getEnv('SHAZAM_API_BASE_URL')
 
@@ -11,6 +11,12 @@ export const SHAZAM_API = {
     },
     summary: {
       GET: createEndpoint<{}, ShazamArtistSummaryInfoSearchParams, ShazamArtistSummaryInfoRequestBody, ShazamArtistSummaryInfoResponseBody>('GET', () => `${BASE_URL}/artists/get-summary`)
+    },
+    topSongs: {
+      GET: createEndpoint<{}, ShazamAuthorTopSongsInfoSearchParams, ShazamAuthorTopSongsInfoRequestBody, ShazamAuthorTopSongsInfoResponseBody>('GET', () => `${BASE_URL}/artists/get-top-songs`)
+    },
+    latestRelease: {
+      GET: createEndpoint<{}, ShazamAuthorLatestReleaseInfoSearchParams, ShazamAuthorLatestReleaseInfoRequestBody, ShazamAuthorLatestReleaseInfoResponseBody>('GET', () => `${BASE_URL}/artists/get-latest-release`)
     }
   },
   songs: {

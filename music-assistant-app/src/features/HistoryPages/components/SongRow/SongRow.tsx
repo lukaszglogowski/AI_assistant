@@ -49,7 +49,7 @@ export const SongRow = (props: SongRowProps) => {
 
 SongRow.defaultProps = {};
 
-export function songDataToAlbumRowProps(data: SongAttributes, events: SongRowEventsProps, options: SongRowOptionsProps): SongRowProps {
+export function songDataToSongRowProps(data: SongAttributes, events: SongRowEventsProps, options: SongRowOptionsProps): SongRowProps {
 
   return {
     data: {

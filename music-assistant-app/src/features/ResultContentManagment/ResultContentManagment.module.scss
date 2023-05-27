@@ -47,7 +47,16 @@
 .content {
   flex: 1 1 auto;
   position: relative;
+  min-height: 0;
+
+  .scrollable {
+    width: 100%;
+    position: absolute;
+    overflow-x: auto;
+    height: 100%;
+  }
 }
+
 
 @media (prefers-color-scheme: dark) {
   .content-box-style {

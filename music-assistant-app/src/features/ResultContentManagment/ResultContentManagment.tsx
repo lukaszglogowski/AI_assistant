@@ -1,5 +1,5 @@
 import { HistoryRenderer } from 'features/HistoryRenderer';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './ResultContentManagment.module.scss';
 import { buildCssClass } from 'utils/css/builders';
@@ -27,6 +27,12 @@ export const ResultContentManager = (props: ResultContentManagerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState('')
 
+  const scrollable = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollable.current) scrollable.current.scrollTop = 0;
+  }, [props.history])
+
   return (
     <HistoryRendererManipulationContext.Provider value={{
       showLoadingSpinner: (v) => setIsLoading(v),
@@ -49,7 +55,9 @@ export const ResultContentManager = (props: ResultContentManagerProps) => {
         </div>
         <Divider/>
         <div className={styles['content']}>
+          <div ref={scrollable} className={styles['scrollable']}>
           <HistoryRenderer history={props.history}/>
+          </div>
         </div>
       </div>
     </HistoryRendererManipulationContext.Provider>

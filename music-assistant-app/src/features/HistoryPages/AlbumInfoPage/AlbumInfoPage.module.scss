@@ -1,0 +1,67 @@
+
+.container {
+  padding-top: 2rem;
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    img {
+      width: 8rem;
+    }
+
+    .name-info {
+      margin-left: 4rem;
+      
+      .name {
+        font-size: 32px;
+      }
+      .additional-info-container {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+
+        .author {
+
+        }
+
+        .genres {
+          font-style: italic;
+          padding-right: 4rem;
+        }
+      }
+      
+    }
+  }
+
+  .header {
+    padding-left: 1rem;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .songs-container {
+    margin-top: 2rem;
+
+    .songs {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+  }
+
+  .info {
+    margin-top: 2rem;
+    padding-left: 1rem;
+    .release-date {
+
+    }
+  }
+
+  .buttons {
+    padding-left: 1rem;
+    margin-top: 2rem;
+    font-size: 16px;
+    line-height: 1em;
+    display: flex;
+    gap: 1rem;
+  }
+}

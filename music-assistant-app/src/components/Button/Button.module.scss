@@ -1,0 +1,82 @@
+
+.button {
+  width: fit-content;
+
+  border-radius: 1.5rem;
+  border-color: black;
+  border-style: solid;
+  border-width: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  &-space-75-sizing {
+    padding: 0.75em;
+  }
+
+  &-space-50-sizing {
+    padding: 0.5em;
+  }
+
+  &-space-25-sizing {
+    padding: 0.25em;
+  }
+
+  &:hover:not(.disabled) {
+    outline: black solid 1px;
+  }
+
+  &:focus:not(.disabled) {
+    outline: black solid 1px;
+  }
+
+  &.active {
+    background-color: black;
+    color: white;
+  }
+
+  &.disabled {
+    cursor: default;
+    background-color: rgb(207, 207, 207);
+    border-color: grey;
+    color: gray;
+
+    &.active {
+      background-color: gray;
+      color: rgb(207, 207, 207);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    color: white;
+    border-color: white;
+
+    &:hover:not(.disabled) {
+      outline: white solid 1px;
+    }
+
+    &:focus:not(.disabled) {
+      outline: white solid 1px;
+    }
+  
+    &.active {
+      background-color: white;
+      color: black;
+    }
+
+    &.disabled {
+      color: grey;
+      background-color: inherit;
+      
+      &.active {
+        background-color: grey;
+        color: black;
+      }
+    }
+  }
+}

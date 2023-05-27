@@ -11,6 +11,8 @@ import ModalSystemContext from 'contexts/ModalSystemContext';
 import { getGenericYtButtonEventPlaylist, getGenericYtButtonEventVideo } from 'utils/youtube';
 import { SongRow, songDataToSongRowProps } from '../components/SongRow';
 import { SongAttributes } from 'utils/apis/shazam.types';
+import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
+import { AlbumInfoPage } from '../AlbumInfoPage';
 
 export type AuthorInfoPageProps = {
   adamid: string;
@@ -19,6 +21,7 @@ export type AuthorInfoPageProps = {
 export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
 
   const historyRendererContext = useContext(HistoryRendererManipulationContext);
+  const historyContext = useContext(HistoryManipulationContext)
   const modalSystem = useContext(ModalSystemContext)
   /*
   const { status: authorDetailsSummaryStatus, data: authorDetailsSummaryData } = useQuery({
@@ -47,7 +50,7 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
   }, [authorDetailsSummaryStatus, authorLatestReleaseStatus, authorTopSongsStatus]);
 */
 
-console.log(authorDetailsSummaryData, authorLatestReleaseData, authorTopSongsData)
+  console.log(authorDetailsSummaryData, authorLatestReleaseData, authorTopSongsData)
   const id = authorDetailsSummaryData.data[0].id as '487143';
   return (
     <>
@@ -67,8 +70,32 @@ console.log(authorDetailsSummaryData, authorLatestReleaseData, authorTopSongsDat
                 Ostatnio wydane
               </div>
               <div className={styles['release']}>
-                {authorLatestReleaseData.data[0].type === 'albums' && <AlbumRow {...albumDataToAlbumRowProps(authorLatestReleaseData.data[0].attributes, {onYtClick: getGenericYtButtonEventPlaylist(modalSystem, authorLatestReleaseData.data[0].attributes.name)}, {})}/>}
-                {authorLatestReleaseData.data[0].type === 'songs' && <SongRow {...songDataToSongRowProps(authorLatestReleaseData.data[0].attributes as unknown as SongAttributes, {onYtClick: getGenericYtButtonEventVideo(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName)}, {})}/>}
+                {authorLatestReleaseData.data[0].type === 'albums' &&
+                  <AlbumRow {...albumDataToAlbumRowProps(
+                    authorLatestReleaseData.data[0].attributes, 
+                    {
+                      onYtClick: getGenericYtButtonEventPlaylist(modalSystem, authorLatestReleaseData.data[0].attributes.name),
+                      onRowClick: () => {
+                        historyContext.pushToHistory({
+                          history: {
+                              component: AlbumInfoPage,
+                              props: {id: authorLatestReleaseData.data[0].id},
+                          }
+                        })
+                      }
+                    },
+                    {}
+                  )}/>
+                }
+                {authorLatestReleaseData.data[0].type === 'songs' &&
+                  <SongRow {...songDataToSongRowProps(
+                    authorLatestReleaseData.data[0].attributes as unknown as SongAttributes,
+                    {
+                      onYtClick: getGenericYtButtonEventVideo(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName)
+                    },
+                    {}
+                  )}/>
+                }
               </div>
             </div>
           }
@@ -79,7 +106,23 @@ console.log(authorDetailsSummaryData, authorLatestReleaseData, authorTopSongsDat
               </div>
               <div className={styles['albums']}>
                 {Object.values(authorDetailsSummaryData.resources.albums).map((v, i) => {
-                  return (<AlbumRow key={i + '_' + v.attributes.name} {...albumDataToAlbumRowProps(v.attributes, {onYtClick: getGenericYtButtonEventPlaylist(modalSystem, v.attributes.name)}, {})}/>);
+                  return (
+                    <AlbumRow key={i + '_' + v.attributes.name} {...albumDataToAlbumRowProps(
+                      v.attributes,
+                      {
+                        onYtClick: getGenericYtButtonEventPlaylist(modalSystem, v.attributes.name),
+                        onRowClick: () => {
+                          historyContext.pushToHistory({
+                            history: {
+                                component: AlbumInfoPage,
+                                props: {id: v.id},
+                            }
+                          })
+                        }
+                      },
+                      {}
+                    )}/>
+                  );
                 })}
                 </div>
             </div>

@@ -12,3 +12,8 @@ export function generateImgLinkFromShazam(link: URLString, width: number, height
   const c = link + '';
   return c.replace('{w}', width + '').replace('{h}', height + '')
 }
+
+export function formatDate(date: string): string {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleDateString()
+}

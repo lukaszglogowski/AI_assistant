@@ -56,12 +56,12 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
               <div className={styles['genres']}>{data.attributes.genreNames.join(', ')}</div>
             </div>
           </div>
-        </div>
-        <div className={styles['info']}>
-          <div className={styles['release-date']}>Wydano: {formatDate(data.attributes.releaseDate)}</div>
+          <div className={styles['yt-artist-btn']}>
+            <YtButton onClick={getGenericYtButtonEventPlaylist(modalSystem, data.attributes.name)}/>
+          </div>
         </div>
         <div className={styles['buttons']}>
-          <YtButton onClick={getGenericYtButtonEventPlaylist(modalSystem, data.attributes.name)}/>
+          <span>Przekieruj do:</span>
           <Button onClick={() => {
             historyContext.pushToHistory({
               history: {
@@ -70,6 +70,9 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
               }
             })
           }}>Autor</Button>
+        </div>
+        <div className={styles['info']}>
+          <div className={styles['release-date']}><strong>Wydano: </strong>{formatDate(data.attributes.releaseDate)}</div>
         </div>
         {
           data.relationships.tracks.data.length > 0 && <div className={styles['songs-container']}>

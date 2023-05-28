@@ -436,6 +436,17 @@ export type ShazamAuthorLatestReleaseInfoResponseBody = {
   }[];
 }
 
+export type ShazamSongRecomendationsInfoSearchParams = {
+  key: string;
+  l?: string;
+}
+
+export type ShazamSongRecomendationsInfoRequestBody = null;
+
+export type ShazamSongRecomendationsInfoResponseBody = {
+  tracks: SongSearchObject[];
+}
+
 
 
 export type YoutubeQueryType = 'video' | 'channel' | 'playlist';

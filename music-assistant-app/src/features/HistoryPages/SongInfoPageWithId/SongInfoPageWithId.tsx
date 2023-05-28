@@ -11,65 +11,19 @@ import {
 import { YOUTUBE_API } from "utils/apis/youtube-v3";
 import { log } from "console";
 
-export type SongInfoPageProps<T> = {
-  songKey:
-    | string
-    | {
-        keyGetter: () => Promise<T>;
-        keyResolver: (keyGetterResult: T) => string;
-      };
+export type SongInfoPageWithIdProps = {
+  id: string;
 };
 
-export const SongInfoPage = <T,>(props: SongInfoPageProps<T>) => {
+export const SongInfoPageWithId = (props: SongInfoPageWithIdProps) => {
   const historyRendererContext = useContext(HistoryRendererManipulationContext);
 
   const [key, setKey] = useState<string>();
-  const [keyGetterStatus, setKeyGetterStatus] = useState<
-    "idle" | "error" | "loading" | "success"
-  >("idle");
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    setIsError(false);
-    historyRendererContext.updateHistoryTitle("");
-
-    if (typeof props.songKey === "string") {
-      setKey(props.songKey);
-      setKeyGetterStatus("success");
-    } else {
-      setKeyGetterStatus("loading");
-      props.songKey
-        .keyGetter()
-        .then((value) => {
-          if (typeof props.songKey !== "string") {
-            setKey(props.songKey.keyResolver(value));
-            setKeyGetterStatus("success");
-          } else {
-            setKeyGetterStatus("error");
-          }
-        })
-        .catch(() => {
-          setKeyGetterStatus("error");
-        });
-    }
-  }, [props.songKey]);
-
-  const { status: apiKeysStatus, data: apiKeys } = useQuery({
-    queryKey: ["infoKeys", key],
-    queryFn: SHAZAM_API.infoKeys.GET({}, { id: key! }, null),
-    enabled: !!key,
-    cacheTime: 10000000,
-  });
-
-  const songId =
-    apiKeys && apiKeys.resources
-      ? Object.keys(apiKeys.resources.songs)[0]
-      : undefined;
-
   const { status: songDetailsStatus, data: songDetails } = useQuery({
-    queryKey: ["songDetails", apiKeys],
-    queryFn: SHAZAM_API.songs.details.GET({}, { id: songId! }, null),
-    enabled: !!songId,
+    queryKey: ["songDetails", props.id],
+    queryFn: SHAZAM_API.songs.details.GET({}, { id: props.id! }, null),
     cacheTime: 10000000,
   });
 
@@ -82,9 +36,7 @@ export const SongInfoPage = <T,>(props: SongInfoPageProps<T>) => {
 
   useEffect(() => {
     if (
-      apiKeysStatus === "loading" ||
-      songDetailsStatus === "loading" ||
-      keyGetterStatus === "loading"
+      songDetailsStatus === "loading"
     ) {
       historyRendererContext.showLoadingSpinner(true);
     } else {
@@ -92,18 +44,14 @@ export const SongInfoPage = <T,>(props: SongInfoPageProps<T>) => {
     }
 
     if (
-      apiKeysStatus === "error" ||
       songDetailsStatus === "error" ||
-      keyGetterStatus === "error" ||
       (songDetailsStatus === "success" &&
         !(songDetails && songDetails?.data.length > 0))
     ) {
       setIsError(true);
     }
   }, [
-    apiKeysStatus,
     songDetailsStatus,
-    keyGetterStatus,
     songDetails,
   ]);
 
@@ -119,7 +67,7 @@ export const SongInfoPage = <T,>(props: SongInfoPageProps<T>) => {
     <>
       {isError && <ErrorMessage>Nie znaleziono utworu</ErrorMessage>}
       {!isError && (
-        <SongInfoContent songDetails={songDetails} songKey={key}/>
+        <SongInfoContent songDetails={songDetails}/>
       )}
       {/*{true && (
         <SongInfoContent
@@ -131,7 +79,7 @@ export const SongInfoPage = <T,>(props: SongInfoPageProps<T>) => {
   );
 };
 
-SongInfoPage.defaultProps = {};
+SongInfoPageWithId.defaultProps = {};
 
 /*const data1 = {
   continuation: "dcsdc",
@@ -241,4 +189,4 @@ const data = {
   ],
 };*/
 
-export default SongInfoPage;
+export default SongInfoPageWithId;

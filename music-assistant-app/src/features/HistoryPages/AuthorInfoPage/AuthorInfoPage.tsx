@@ -10,10 +10,12 @@ import { AlbumRow, albumDataToAlbumRowProps } from '../components/AlbumRow';
 import ModalSystemContext from 'contexts/ModalSystemContext';
 import { getGenericYtButtonEventChannel, getGenericYtButtonEventPlaylist, getGenericYtButtonEventVideo } from 'utils/youtube';
 import { SongRow, songDataToSongRowProps } from '../components/SongRow';
-import { SongAttributes } from 'utils/apis/shazam.types';
+import { ShazamDetectSongResponseBody, SongAttributes } from 'utils/apis/shazam.types';
 import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
 import { AlbumInfoPage } from '../AlbumInfoPage';
 import { YtButton } from '../components/YtButton';
+import { SongInfoPage } from '../SongInfoPage';
+import SongInfoPageWithId from '../SongInfoPageWithId/SongInfoPageWithId';
 
 export type AuthorInfoPageProps = {
   adamid: string;
@@ -94,7 +96,18 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
                   <SongRow {...songDataToSongRowProps(
                     authorLatestReleaseData.data[0].attributes as unknown as SongAttributes,
                     {
-                      onYtClick: getGenericYtButtonEventVideo(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName)
+                      onYtClick: getGenericYtButtonEventVideo(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName),
+                      onRowClick: () => {
+                        historyContext.pushToHistory({
+                          history: {
+                            component: SongInfoPageWithId,
+                            props: {
+                              //songKey: "157666207",
+                              id: authorLatestReleaseData.data[0].id
+                            },
+                          },
+                        });
+                      }
                     },
                     {}
                   )}/>
@@ -137,7 +150,26 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
               </div>
               <div className={styles['top-songs']}>
                 {authorTopSongsData.data.map((v, i) => {
-                  return (<SongRow key={i + '_' + v.attributes.name} {...songDataToSongRowProps(v.attributes, {onYtClick: getGenericYtButtonEventVideo(modalSystem, v.attributes.name + ' ' + v.attributes.artistName)}, {})}/>);
+                  return (
+                    <SongRow key={i + '_' + v.attributes.name} {...songDataToSongRowProps(
+                      v.attributes,
+                      {
+                        onYtClick: getGenericYtButtonEventVideo(modalSystem, v.attributes.name + ' ' + v.attributes.artistName),
+                        onRowClick: () => {
+                          historyContext.pushToHistory({
+                            history: {
+                              component: SongInfoPageWithId,
+                              props: {
+                                //songKey: "157666207",
+                                id: v.id
+                              },
+                            },
+                          });
+                        }
+                      },
+                      {}
+                    )}/>
+                  );
                 })}
                 </div>
             </div>

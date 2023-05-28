@@ -1,35 +1,87 @@
-.song-info-container {
-    padding-left: 1em;
-    margin-bottom: 0.5em;
-}
 
+.container {
+  padding-top: 2rem;
 
-.button {
-    width: 7em;
-    height: 7em;
-  
-    border-radius: 50%;
-    border-color: red;
-    border-style: solid;
-    border-width: 2px;
-  
+  .header-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: red;
-    
-    cursor: pointer;
-  
-    &.disabled {
-      cursor: default;
-      background-color: rgb(207, 207, 207);
-      border-color: grey;
-      color: gray;
-  
-      &.active {
-        background-color: red;
-        color: rgb(207, 207, 207);
-      }
+    img {
+      width: 8rem;
     }
+
+    .name-info {
+      margin-left: 4rem;
+      flex-grow: 1;
+      
+      .name {
+        font-size: 32px;
+      }
+      .additional-info-container {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        
+
+        .author {
+
+        }
+
+        .genres {
+          font-style: italic;
+          padding-right: 4rem;
+        }
+      }
+      
+    }
+
+    .yt-artist-btn {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      font-size: 24px;
+    }
+  }
+
+  .header {
+    padding-left: 1rem;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .songs-container {
+    margin-top: 4rem;
+
+    .songs {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+  }
+
+  .info-container {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    .info {
+      margin-top: 1rem; 
+    }
+  }
+
+  .buttons {
+    align-items: center;
+    padding-left: 1rem;
+    margin-top: 2rem;
+    font-size: 16px;
+    line-height: 1em;
+    display: flex;
+    gap: 1rem;
+  }
+
+
+  .recomendations-container {
+    margin-top: 4rem;
+
+    .recomendations {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+  }
 }
   

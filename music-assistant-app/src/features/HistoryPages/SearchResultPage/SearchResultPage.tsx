@@ -31,10 +31,10 @@ export const SearchResultPage = (props: SearchResultPageProps) => {
   const [listComps, setListComponent] = useState<{songs: JSX.Element[], artists:JSX.Element[]}>({songs: [], artists: []});
   const [activeBtn, setActiveBtn] = useState<'songs' | 'artists'>('songs')
   
-  const { status: searchStatus, data: searchResults } = useQuery({
+  /*const { status: searchStatus, data: searchResults } = useQuery({
     queryKey: ["shazamSearch", props.term],
     queryFn: SHAZAM_API.search.GET({}, { term: props.term }, null),
-  });
+  });*/
 
   useEffect(() => {
     if (!searchResults || checkForErrors(searchResults)) {
@@ -82,14 +82,14 @@ export const SearchResultPage = (props: SearchResultPageProps) => {
     historyRendererContext.updateHistoryTitle(`Znaleziono: ${songs.length} utworów, ${artists.length} autorów`);
   }, [searchResults]); 
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (searchStatus === 'loading') historyRendererContext.showLoadingSpinner(true);
     else historyRendererContext.showLoadingSpinner(false);
-  }, [searchStatus])
+  }, [searchStatus])*/
   
   return(
-    <>{searchStatus === 'error' && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
-      {searchStatus === 'success' && <><div>
+    <>{/*searchStatus === 'error' && checkForErrors(searchResults) && <ErrorMessage>Nie znaleziono danych</ErrorMessage>*/}
+      {'success' === 'success' && <><div>
         <SwitchGroup buttons={[
             {
                 id: 'songs',
@@ -115,7 +115,7 @@ SearchResultPage.defaultProps = {};
 
 export default SearchResultPage;
 
-/*const searchResults = {
+const searchResults = {
   "tracks": {
       "hits": [
           {
@@ -809,4 +809,4 @@ export default SearchResultPage;
           }
       ]
   }
-}*/
+}

@@ -40,12 +40,11 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
   }, [albumDetailsSummaryStatus]);
 
   */
-  console.log(albumDetailsSummaryData)
-  const data = albumDetailsSummaryData.data[0];
-  const id = data.id;
+
+  const data = albumDetailsSummaryData?.data?.length > 0 ? albumDetailsSummaryData.data[0] : {} as any;
   return (
     <>
-      {/*albumDetailsSummaryStatus === 'error'*/ false && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
+      {/*albumDetailsSummaryStatus === 'error' && checkForErrors(albumDetailsSummaryData)*/ false && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
       {/*albumDetailsSummaryStatus === 'success' &&*/ <>
       <div className={styles['container']}>
         <div className={styles['header-container']}>
@@ -78,7 +77,7 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
               Utwory: {data.attributes.trackCount}
             </div>
             <div className={styles['songs']}>
-              {data.relationships.tracks.data.map((v, i) => {
+              {data.relationships.tracks.data.map((v: any, i:any) => {
                 return (
                   <SongRow key={i + '_' + v.attributes.name} {...songDataToSongRowProps(
                     v.attributes,

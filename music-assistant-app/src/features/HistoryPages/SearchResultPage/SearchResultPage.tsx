@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { SHAZAM_API } from 'utils/apis/shazam';
+import { SHAZAM_API, checkForErrors } from 'utils/apis/shazam';
 import { Collapse } from 'react-collapse';
 import { SongRow } from '../components/SongRow';
 import { buildCssClass } from 'utils/css/builders';
@@ -9,11 +9,15 @@ import SwitchGroup from 'components/SwitchGroup/SwitchGroup';
 import { useContext, useEffect, useState } from 'react';
 import { ArtistRow } from '../components/ArtistRow';
 import HistoryRendererManipulationContext from 'contexts/HistoryRendererManipultaionContext';
-import { generateYoutubeLink, getFirstChannel, getFirstVideo } from 'utils/youtube';
+import { generateYoutubeLink, getFirstChannel, getFirstVideo, getGenericYtButtonEventChannel, getGenericYtButtonEventVideo } from 'utils/youtube';
 import { openNewTab } from 'utils/browser';
 import { openErrorMessage } from 'components/ModalMessagesTypes/ErrorMessage';
 import ModalSystemContext from 'contexts/ModalSystemContext';
 import { ErrorMessage } from 'components/ErrorMesasge';
+import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
+import { AuthorInfoPage, AuthorInfoPageProps } from '../AuthorInfoPage';
+import { SongInfoPage } from '../SongInfoPage';
+import { ShazamDetectSongResponseBody } from 'utils/apis/shazam.types';
 
 export type SearchResultPageProps = {
   term: string
@@ -33,13 +37,26 @@ export const SearchResultPage = (props: SearchResultPageProps) => {
   });
 
   useEffect(() => {
-    if (!searchResults) {
+    if (!searchResults || checkForErrors(searchResults)) {
         historyRendererContext.updateHistoryTitle('');
         return
     }
     const songs = searchResults.tracks.hits.map((t, i) => (
         <SongRow key={i + '_' + t.track.key} data={{title: t.track.title, artist: t.track.subtitle, imgUrl: t.track.images.coverart}}
-        events={{onYtClick: getGenericYtButtonEventVideo(modalSystem, t.track.title + ' ' + t.track.subtitle)}}
+        events={{
+            onYtClick: getGenericYtButtonEventVideo(modalSystem, t.track.title + ' ' + t.track.subtitle),
+            onRowClick: () => {
+                historyContext.pushToHistory({
+                    history: {
+                      component: SongInfoPage<ShazamDetectSongResponseBody>,
+                      props: {
+                        //songKey: "157666207",
+                        songKey: t.track.key,
+                      },
+                    },
+                  });
+            }
+        }}
         ></SongRow>
     ));
     

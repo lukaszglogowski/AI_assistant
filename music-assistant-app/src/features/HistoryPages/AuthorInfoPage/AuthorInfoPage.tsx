@@ -8,11 +8,12 @@ import styles from './AuthorInfoPage.module.scss';
 import { generateImgLinkFromShazam } from 'utils/browser';
 import { AlbumRow, albumDataToAlbumRowProps } from '../components/AlbumRow';
 import ModalSystemContext from 'contexts/ModalSystemContext';
-import { getGenericYtButtonEventPlaylist, getGenericYtButtonEventVideo } from 'utils/youtube';
+import { getGenericYtButtonEventChannel, getGenericYtButtonEventPlaylist, getGenericYtButtonEventVideo } from 'utils/youtube';
 import { SongRow, songDataToSongRowProps } from '../components/SongRow';
 import { SongAttributes } from 'utils/apis/shazam.types';
 import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
 import { AlbumInfoPage } from '../AlbumInfoPage';
+import { YtButton } from '../components/YtButton';
 
 export type AuthorInfoPageProps = {
   adamid: string;
@@ -50,11 +51,10 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
   }, [authorDetailsSummaryStatus, authorLatestReleaseStatus, authorTopSongsStatus]);
 */
 
-  console.log(authorDetailsSummaryData, authorLatestReleaseData, authorTopSongsData)
-  const id = authorDetailsSummaryData.data[0].id as '487143';
+  const id = authorDetailsSummaryData?.data?.length > 0 ? authorDetailsSummaryData.data[0].id as '487143' : '487143';
   return (
     <>
-      {/*authorDetailsSummaryStatus === 'error'*/ false && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
+      {/*authorDetailsSummaryStatus === 'error' && checkForErrors(authorDetailsSummaryData)*/ false && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
       {/*authorDetailsSummaryStatus === 'success' &&*/ <>
         <div className={styles['container']}>
           <div className={styles['header-container']}>
@@ -62,6 +62,9 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
             <div className={styles['name-info']}>
               <div className={styles['name']}>{authorDetailsSummaryData.resources.artists[id].attributes.name}</div>
               <div className={styles['genres']}>{authorDetailsSummaryData.resources.artists[id].attributes.genreNames.join(', ')}</div>
+            </div>
+            <div className={styles['yt-artist-btn']}>
+              <YtButton onClick={getGenericYtButtonEventChannel(modalSystem, authorDetailsSummaryData.resources.artists[id].attributes.name)}/>
             </div>
           </div>
           {authorLatestReleaseData?.data && ['songs', 'albums'].includes(authorLatestReleaseData.data[0].type) && 

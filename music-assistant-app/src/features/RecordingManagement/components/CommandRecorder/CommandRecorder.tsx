@@ -12,6 +12,8 @@ import styles from './CommandRecorder.module.scss';
 import { ActiveStateUpdateProps } from 'features/RecordingManagement/types';
 import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
 import { SearchResultPage } from 'features/HistoryPages/SearchResultPage';
+import ModalSystemContext from 'contexts/ModalSystemContext';
+import { openErrorMessage } from 'components/ModalMessagesTypes/ErrorMessage';
 
 export type CommandRecorderProps = ActiveStateUpdateProps & {};
 
@@ -19,6 +21,7 @@ export type CommandRecorderProps = ActiveStateUpdateProps & {};
 export const CommandRecorder = (props: CommandRecorderProps) => {
   const context = useContext(MessageContext);
   const history = useContext(HistoryManipulationContext);
+  const modalSystem = useContext(ModalSystemContext)
   const [commands, _] = useState(createCommands({
     DateTime: (msg) => context.setMessage(msg),
     ShazamSearch: (term) => history.resetHistoryAndPush({
@@ -37,10 +40,26 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    isMicrophoneAvailable
   } = useSpeechRecognition({ commands });
 
 
   useEffect(() => {
+    if (!browserSupportsSpeechRecognition) {
+      openErrorMessage(modalSystem, <><div className='center'>Niekompatybilna przeglądarka</div><div className='center'>Aplikacja nideostępna</div></>, undefined, false);
+      return
+    }
+    if (!isMicrophoneAvailable) {
+      openErrorMessage(modalSystem, <><div className='center'>Mikrofon niedostępny</div><div className='center'>Należy go włączyć dla obecnej strony i ją odświerzyć</div></>);
+      return
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isMicrophoneAvailable) {
+      openErrorMessage(modalSystem, <><div className='center'>Mikrofon niedostępny</div><div className='center'>Należy go włączyć dla obecnej strony i ją odświerzyć</div></>);
+      return;
+    }
     setIsButtonActive(true);
   }, [props.forceActivate])
 
@@ -80,7 +99,13 @@ export const CommandRecorder = (props: CommandRecorderProps) => {
     <div className={styles['command-recorder']}>
       <RecordingButton
         active={isButtonActive}
-        onClick={() => setIsButtonActive(!isButtonActive)}
+        onClick={() => {
+          if (!isMicrophoneAvailable) {
+            openErrorMessage(modalSystem, <><div className='center'>Mikrofon niedostępny</div><div className='center'>Należy go włączyć dla obecnej strony i ją odświerzyć</div></>);
+            return;
+          }
+          setIsButtonActive(!isButtonActive)
+        }}
         colorClassName={styles['color']}
       >
         <BsFillMicFill />

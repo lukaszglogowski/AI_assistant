@@ -11,13 +11,14 @@ import {
   getAudioStream,
   processAudioBufferToShazam,
 } from "utils/audio";
-import { arrayBuffer } from "stream/consumers";
-import { useSignal } from "utils/hooks/useSignal";
 import Recorder from "recorder-js";
 import HistoryManipulationContext from "contexts/HistoryManipulationContext";
 import { SongInfoPage } from "features/HistoryPages/SongInfoPage";
 import { SHAZAM_API } from "utils/apis/shazam";
 import { ShazamDetectSongResponseBody } from "utils/apis/shazam.types";
+import ModalSystemContext from 'contexts/ModalSystemContext';
+import { useSpeechRecognition } from 'react-speech-recognition';
+import { openErrorMessage } from 'components/ModalMessagesTypes/ErrorMessage';
 
 const AUDIO_TIME_MS = 3500;
 
@@ -47,13 +48,20 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
   const [audioStream, setAudioStream] = useState<MediaStream>();
 
   const history = useContext(HistoryManipulationContext);
+  const modalSystem = useContext(ModalSystemContext)
 
   const timerClassObj = buildCssClass({
     [styles["timer"]]: true,
     [styles["active"]]: isButtonActive,
   });
 
+
+  const {
+    isMicrophoneAvailable
+  } = useSpeechRecognition();
+
   useEffect(() => {
+    if (!isMicrophoneAvailable) {return;}
     async function initStream() {
       let stream;
       try {
@@ -69,9 +77,13 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
       }
     }
     initStream().catch((e) => console.log(e));
-  }, []);
+  }, [isMicrophoneAvailable]);
 
   useEffect(() => {
+    if (!isMicrophoneAvailable) {
+      openErrorMessage(modalSystem, <><div className='center'>Mikrofon niedostępny</div><div className='center'>Należy go włączyć dla obecnej strony i ją odświerzyć</div></>);
+      return
+    }
     setIsButtonActive(true);
   }, [props.forceActivate]);
 
@@ -119,6 +131,10 @@ export const MusicRecorder = (props: MusicRecorderProps) => {
       <RecordingButton
         active={isButtonActive}
         onClick={() => {
+          if (!isMicrophoneAvailable) {
+            openErrorMessage(modalSystem, <><div className='center'>Mikrofon niedostępny</div><div className='center'>Należy go włączyć dla obecnej strony i ją odświerzyć</div></>);
+            return
+          }
           setIsButtonActive(!isButtonActive);
           if (!isButtonActive)
             setTimeout(() => {

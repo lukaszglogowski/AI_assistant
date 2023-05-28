@@ -39,3 +39,10 @@ body, #root {
     background-color: #f9f9f9;
   }
 }
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

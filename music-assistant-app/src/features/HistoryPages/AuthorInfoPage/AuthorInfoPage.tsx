@@ -60,8 +60,6 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
     }
   }, [authorDetailsSummaryData])
 
-  console.log(authorLatestReleaseData)
-
   const id = authorDetailsSummaryData?.data?.length && authorDetailsSummaryData?.data?.length > 0 ? authorDetailsSummaryData.data[0].id : '';
   return (
     <>
@@ -138,7 +136,8 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
                     <AlbumRow key={i + '_' + v.attributes.name} {...albumDataToAlbumRowProps(
                       v.attributes,
                       {
-                        onYtClick: getGenericYtButtonEventPlaylist(modalSystem, v.attributes.name +  ' ' + v.attributes.artistName),
+                        onYtClick: v.attributes.isSingle ? getGenericYtButtonEventVideo(modalSystem, v.attributes.name +  ' ' + v.attributes.artistName):
+                          getGenericYtButtonEventPlaylist(modalSystem, v.attributes.name +  ' ' + v.attributes.artistName),
                         onRowClick: () => {
                           historyContext.pushToHistory({
                             history: {

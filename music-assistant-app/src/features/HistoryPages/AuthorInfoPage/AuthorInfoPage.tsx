@@ -91,7 +91,7 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
                       onYtClick: 
                         (authorLatestReleaseData.data[0].attributes as unknown as AlbumAttributes).isSingle ? 
                         getGenericYtButtonEventVideo(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName) :
-                        getGenericYtButtonEventPlaylist(modalSystem, authorLatestReleaseData.data[0].attributes.name),
+                        getGenericYtButtonEventPlaylist(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName),
                       onRowClick: () => {
                         historyContext.pushToHistory({
                           history: {
@@ -138,7 +138,7 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
                     <AlbumRow key={i + '_' + v.attributes.name} {...albumDataToAlbumRowProps(
                       v.attributes,
                       {
-                        onYtClick: getGenericYtButtonEventPlaylist(modalSystem, v.attributes.name),
+                        onYtClick: getGenericYtButtonEventPlaylist(modalSystem, v.attributes.name +  ' ' + v.attributes.artistName),
                         onRowClick: () => {
                           historyContext.pushToHistory({
                             history: {

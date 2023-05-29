@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import styles from './AlbumInfoPage.module.scss';
 import { useQuery } from 'react-query';
-import { SHAZAM_API } from 'utils/apis/shazam';
+import { SHAZAM_API, checkForErrors } from 'utils/apis/shazam';
 import { ErrorMessage } from 'components/ErrorMesasge';
 import { formatDate, generateImgLinkFromShazam } from 'utils/browser';
 import { SongRow, songDataToSongRowProps } from '../components/SongRow';
@@ -15,6 +15,8 @@ import { YtButton } from '../components/YtButton';
 import { IconButton } from 'components/IconButton';
 import { Button } from 'components/Button';
 import { AuthorInfoPage } from '../AuthorInfoPage';
+import { SongInfoPageWithId } from '../SongInfoPageWithId';
+import { ShazamAlbumInfoResponseBody } from 'utils/apis/shazam.types';
 
 export type AlbumInfoPageProps = {
   id: string
@@ -26,7 +28,7 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
   const historyContext = useContext(HistoryManipulationContext)
   const modalSystem = useContext(ModalSystemContext)
 
-  /*const { status: albumDetailsSummaryStatus, data: albumDetailsSummaryData } = useQuery({
+  const { status: albumDetailsSummaryStatus, data: albumDetailsSummaryData } = useQuery({
     queryKey: ['album-details-summary', props.id],
     queryFn: SHAZAM_API.albums.details.GET({}, { id: props.id}, null),
   });
@@ -39,13 +41,24 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
     }
   }, [albumDetailsSummaryStatus]);
 
-  */
+  useEffect(() => {
+    if (!!albumDetailsSummaryData) {
+      historyRendererContext.updateHistoryTitle('Album');
+    } else {
+      historyRendererContext.updateHistoryTitle('');
+    }
+  }, [albumDetailsSummaryData])
 
-  const data = albumDetailsSummaryData?.data?.length > 0 ? albumDetailsSummaryData.data[0] : {} as any;
+  const data = albumDetailsSummaryData?.data?.length && albumDetailsSummaryData?.data?.length > 0 ? albumDetailsSummaryData.data[0] : undefined;
+
+  if (!data) {
+    return (<ErrorMessage>Nie znaleziono danych</ErrorMessage>);
+  }
+  
   return (
     <>
-      {/*albumDetailsSummaryStatus === 'error' && checkForErrors(albumDetailsSummaryData)*/ false && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
-      {/*albumDetailsSummaryStatus === 'success' &&*/ <>
+      {(albumDetailsSummaryStatus === 'error' || checkForErrors(albumDetailsSummaryData)) && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
+      {albumDetailsSummaryStatus === 'success' && !checkForErrors(albumDetailsSummaryData) && <>
       <div className={styles['container']}>
         <div className={styles['header-container']}>
           <img src={generateImgLinkFromShazam(data.attributes.artwork.url, 256, 256)}/>
@@ -86,7 +99,17 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
                     v.attributes,
                     {
                       onYtClick: getGenericYtButtonEventVideo(modalSystem, v.attributes.name + ' ' + v.attributes.artistName),
-                      onRowClick: undefined
+                      onRowClick: () => {
+                        historyContext.pushToHistory({
+                          history: {
+                            component: SongInfoPageWithId,
+                            props: {
+                              //songKey: "157666207",
+                              id: v.id
+                            },
+                          },
+                        });
+                      }
                     },{}
                   )}/>
                 );
@@ -107,7 +130,7 @@ AlbumInfoPage.defaultProps = {
 export default AlbumInfoPage;
 
 
-const albumDetailsSummaryData = {
+/*const albumDetailsSummaryData = {
   "data": [
       {
           "id": "1665303573",
@@ -679,4 +702,4 @@ const albumDetailsSummaryData = {
           }
       }
   ]
-}
+}*/

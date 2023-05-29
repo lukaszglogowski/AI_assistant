@@ -1,5 +1,7 @@
 import { URLString } from './genericTypes.types';
 
+export const NO_PHOTO_URL = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
+
 export function openNewTab(link: URLString): void {
   window.open(
     link as string,

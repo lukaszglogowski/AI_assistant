@@ -59,7 +59,7 @@ export const SongInfoPageWithId = (props: SongInfoPageWithIdProps) => {
     if (!(songDetails && songDetails?.data.length > 0)) return;
 
     historyRendererContext.updateHistoryTitle(
-      `Znaleziono: ${songDetails.data[0].attributes.name}`
+      `Utwór`
     );
   }, [songDetails]);
 

@@ -5,7 +5,7 @@ import styles from './ArtistRow.module.scss';
 import { YtButton } from '../YtButton';
 import { OnClickProps } from 'utils/propsTypes';
 import { ArtistAttributes } from 'utils/apis/shazam.types';
-import { generateImgLinkFromShazam } from 'utils/browser';
+import { NO_PHOTO_URL, generateImgLinkFromShazam } from 'utils/browser';
 import { buildCssClass } from 'utils/css/builders';
 
 export type ArtistRowEventsProps = {
@@ -20,7 +20,7 @@ export type ArtistRowOptionsProps = {
 export type ArtistRowProps = {
   data: {
     name: string;
-    imgUrl: URLString;
+    imgUrl?: URLString;
   }
   events?: ArtistRowEventsProps;
   options?: ArtistRowOptionsProps;
@@ -36,23 +36,26 @@ export const ArtistRow = (props: ArtistRowProps) => {
 
   return(
     <div className={containerCss} onClick={props.events?.onRowClick}>
-      <img src={props.data.imgUrl as string}/>
+      <img src={(props.data.imgUrl || NO_PHOTO_URL) as string}/>
       <div className={styles['name']}>
         {props.data.name}
       </div>
-      {props.events?.onYtClick && <YtButton className={styles['yt-btn']} onClick={props.events?.onYtClick}/>}
+      {props.events?.onYtClick && <YtButton className={styles['yt-btn']} onClick={(e) => {
+        e.stopPropagation();
+        props.events?.onYtClick && props.events?.onYtClick(e)
+      }}/>}
     </div>
   );
 }
 
 ArtistRow.defaultProps = {};
 
-export function artistDataToAlbumRowProps(data: ArtistAttributes, events: ArtistRowEventsProps, options: ArtistRowOptionsProps): ArtistRowProps {
+export function artistDataToArtistRowProps(data: ArtistAttributes, events: ArtistRowEventsProps, options: ArtistRowOptionsProps): ArtistRowProps {
 
   return {
     data: {
       name: data.name,
-      imgUrl: generateImgLinkFromShazam(data.artwork.url, 256, 256),
+      imgUrl: !!data?.artwork?.url ? generateImgLinkFromShazam(data.artwork.url, 256, 256) : undefined,
     },
     events: events,
     options: options,

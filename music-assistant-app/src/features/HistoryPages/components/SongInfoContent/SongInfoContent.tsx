@@ -32,21 +32,17 @@ export const SongInfoContent = (props: SongInfoContentProps) => {
   const historyContext = useContext(HistoryManipulationContext)
   const modalSystem = useContext(ModalSystemContext)
 
-  
-
-  if (!props.songDetails || props.songDetails?.data?.length == 0) {
-    return <></>;
-  }
-
-  const data = props.songDetails.data[0]
-  console.log(data)
-
   const { status: recomendationsStatus, data: recomendationsData } = useQuery({
     queryKey: ['songs-recomendations', props.songKey],
     queryFn: SHAZAM_API.songs.recomendations.GET({}, { key: props.songKey! }, null),
     enabled: !!props.songKey
   });
 
+  if (!props.songDetails || props.songDetails?.data?.length == 0) {
+    return <></>;
+  }
+
+  const data = props.songDetails.data[0]
 
   return (
     <>
@@ -106,7 +102,7 @@ export const SongInfoContent = (props: SongInfoContentProps) => {
                 {recomendationsData.tracks.map((t, i) => {
                   return (
                     <SongRow key={i + '_' + t.key}  
-                      data={{title: t.title, artist: t.subtitle, imgUrl: t.images.coverart}}
+                      data={{title: t.title, artist: t.subtitle, imgUrl: t?.images?.coverart}}
                       events={{
                         onYtClick: getGenericYtButtonEventVideo(modalSystem, t.title + ' ' + t.subtitle),
                         onRowClick: () => {

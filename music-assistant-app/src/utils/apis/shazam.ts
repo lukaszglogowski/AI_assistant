@@ -45,5 +45,5 @@ export const SHAZAM_API = {
 
 
 export function checkForErrors(data: any): boolean {
-  return !!(data['errors']) && (data['errors'].length > 0);
+  return !!data && ((Object.keys(data).length === 0) || !!(data['errors']) && (data['errors'].length > 0));
 }

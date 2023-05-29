@@ -2,7 +2,7 @@ import { ErrorMessage } from 'components/ErrorMesasge';
 import HistoryRendererManipulationContext from 'contexts/HistoryRendererManipultaionContext';
 import React, { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { SHAZAM_API } from 'utils/apis/shazam';
+import { SHAZAM_API, checkForErrors } from 'utils/apis/shazam';
 
 import styles from './AuthorInfoPage.module.scss';
 import { generateImgLinkFromShazam } from 'utils/browser';
@@ -10,7 +10,7 @@ import { AlbumRow, albumDataToAlbumRowProps } from '../components/AlbumRow';
 import ModalSystemContext from 'contexts/ModalSystemContext';
 import { getGenericYtButtonEventChannel, getGenericYtButtonEventPlaylist, getGenericYtButtonEventVideo } from 'utils/youtube';
 import { SongRow, songDataToSongRowProps } from '../components/SongRow';
-import { ShazamDetectSongResponseBody, SongAttributes } from 'utils/apis/shazam.types';
+import { AlbumAttributes, ShazamDetectSongResponseBody, SongAttributes } from 'utils/apis/shazam.types';
 import HistoryManipulationContext from 'contexts/HistoryManipulationContext';
 import { AlbumInfoPage } from '../AlbumInfoPage';
 import { YtButton } from '../components/YtButton';
@@ -26,7 +26,7 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
   const historyRendererContext = useContext(HistoryRendererManipulationContext);
   const historyContext = useContext(HistoryManipulationContext)
   const modalSystem = useContext(ModalSystemContext)
-  /*
+  
   const { status: authorDetailsSummaryStatus, data: authorDetailsSummaryData } = useQuery({
     queryKey: ['author-details-summary', props.adamid],
     queryFn: SHAZAM_API.autors.summary.GET({}, { id: props.adamid }, null),
@@ -51,13 +51,22 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
       historyRendererContext.showLoadingSpinner(false);
     }
   }, [authorDetailsSummaryStatus, authorLatestReleaseStatus, authorTopSongsStatus]);
-*/
 
-  const id = authorDetailsSummaryData?.data?.length > 0 ? authorDetailsSummaryData.data[0].id as '487143' : '487143';
+  useEffect(() => {
+    if (!!authorDetailsSummaryData) {
+      historyRendererContext.updateHistoryTitle('Artysta');
+    } else {
+      historyRendererContext.updateHistoryTitle('');
+    }
+  }, [authorDetailsSummaryData])
+
+  console.log(authorLatestReleaseData)
+
+  const id = authorDetailsSummaryData?.data?.length && authorDetailsSummaryData?.data?.length > 0 ? authorDetailsSummaryData.data[0].id : '';
   return (
     <>
-      {/*authorDetailsSummaryStatus === 'error' && checkForErrors(authorDetailsSummaryData)*/ false && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
-      {/*authorDetailsSummaryStatus === 'success' &&*/ <>
+      {(authorDetailsSummaryStatus === 'error' || checkForErrors(authorDetailsSummaryData)) && <ErrorMessage>Nie znaleziono danych</ErrorMessage>}
+      {authorDetailsSummaryStatus === 'success' && !checkForErrors(authorDetailsSummaryData) && <>
         <div className={styles['container']}>
           <div className={styles['header-container']}>
             <img src={generateImgLinkFromShazam(authorDetailsSummaryData.resources.artists[id].attributes.artwork.url, 256, 256)}/>
@@ -69,7 +78,7 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
               <YtButton onClick={getGenericYtButtonEventChannel(modalSystem, authorDetailsSummaryData.resources.artists[id].attributes.name)}/>
             </div>
           </div>
-          {authorLatestReleaseData?.data && ['songs', 'albums'].includes(authorLatestReleaseData.data[0].type) && 
+          {authorLatestReleaseData?.data?.length && authorLatestReleaseData?.data?.length > 0 && ['songs', 'albums'].includes(authorLatestReleaseData.data[0].type) && 
             <div className={styles['latest-release-container']}>
               <div className={styles['header']}>
                 Ostatnio wydane
@@ -77,9 +86,12 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
               <div className={styles['release']}>
                 {authorLatestReleaseData.data[0].type === 'albums' &&
                   <AlbumRow {...albumDataToAlbumRowProps(
-                    authorLatestReleaseData.data[0].attributes, 
+                    authorLatestReleaseData.data[0].attributes as unknown as AlbumAttributes, 
                     {
-                      onYtClick: getGenericYtButtonEventPlaylist(modalSystem, authorLatestReleaseData.data[0].attributes.name),
+                      onYtClick: 
+                        (authorLatestReleaseData.data[0].attributes as unknown as AlbumAttributes).isSingle ? 
+                        getGenericYtButtonEventVideo(modalSystem, authorLatestReleaseData.data[0].attributes.name + ' ' + authorLatestReleaseData.data[0].attributes.artistName) :
+                        getGenericYtButtonEventPlaylist(modalSystem, authorLatestReleaseData.data[0].attributes.name),
                       onRowClick: () => {
                         historyContext.pushToHistory({
                           history: {
@@ -144,7 +156,7 @@ export const AuthorInfoPage = (props: AuthorInfoPageProps) => {
             </div>
           }
           {
-            authorTopSongsData?.data.length > 0 && <div className={styles['top-songs-container']}>
+            authorTopSongsData?.data?.length && authorTopSongsData?.data?.length > 0 && <div className={styles['top-songs-container']}>
               <div className={styles['header']}>
                 Najpopularniejsze utwory
               </div>
@@ -190,7 +202,7 @@ AuthorInfoPage.defaultProps = {
 export default AuthorInfoPage;
 
 
-const authorDetailsSummaryData = {
+/*const authorDetailsSummaryData = {
   "data": [
       {
           "id": "487143",
@@ -3301,4 +3313,4 @@ const authorTopSongsData = {
           }
       }
   ]
-}
+}*/

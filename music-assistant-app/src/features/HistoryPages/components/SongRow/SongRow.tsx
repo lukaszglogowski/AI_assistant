@@ -5,7 +5,7 @@ import styles from './SongRow.module.scss';
 import { YtButton } from '../YtButton';
 import { OnClickProps } from 'utils/propsTypes';
 import { SongAttributes } from 'utils/apis/shazam.types';
-import { generateImgLinkFromShazam } from 'utils/browser';
+import { NO_PHOTO_URL, generateImgLinkFromShazam } from 'utils/browser';
 import { buildCssClass } from 'utils/css/builders';
 
 export type SongRowEventsProps = {
@@ -21,7 +21,7 @@ export type SongRowProps = {
   data: {
     title: string;
     artist: string;
-    imgUrl: URLString;
+    imgUrl?: URLString;
   }
   events?: SongRowEventsProps;
   options?: SongRowOptionsProps;
@@ -37,12 +37,15 @@ export const SongRow = (props: SongRowProps) => {
 
   return(
     <div className={containerCss} onClick={props.events?.onRowClick}>
-      <img src={props.data.imgUrl as string}/>
+      <img src={(props.data.imgUrl || NO_PHOTO_URL) as string}/>
       <div className={styles['ta-container']}>
         <div className={styles['title']}>{props.data.title}</div>
         <div className={styles['artist']}>{props.data.artist}</div>
       </div>
-      {props.events?.onYtClick && <YtButton className={styles['yt-btn']} onClick={props.events?.onYtClick}/>}
+      {props.events?.onYtClick && <YtButton className={styles['yt-btn']} onClick={(e) => {
+        e.stopPropagation();
+        props.events?.onYtClick && props.events?.onYtClick(e)
+      }}/>}
     </div>
   );
 }
@@ -55,7 +58,7 @@ export function songDataToSongRowProps(data: SongAttributes, events: SongRowEven
     data: {
       title: data.name,
       artist: data.artistName,
-      imgUrl: generateImgLinkFromShazam(data.artwork.url, 256, 256),
+      imgUrl: !!data?.artwork?.url ? generateImgLinkFromShazam(data.artwork.url, 256, 256) : undefined,
     },
     events: events,
     options: options,

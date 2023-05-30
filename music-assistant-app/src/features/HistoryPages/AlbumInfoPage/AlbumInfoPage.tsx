@@ -70,7 +70,7 @@ export const AlbumInfoPage = (props: AlbumInfoPageProps) => {
             </div>
           </div>
           <div className={styles['yt-artist-btn']}>
-            <YtButton onClick={getGenericYtButtonEventPlaylist(modalSystem, data.attributes.name)}/>
+            <YtButton onClick={getGenericYtButtonEventPlaylist(modalSystem, data.attributes.name + ' ' + data.attributes.artistName)}/>
           </div>
         </div>
         <div className={styles['buttons']}>
